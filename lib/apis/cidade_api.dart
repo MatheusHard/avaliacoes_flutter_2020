@@ -10,16 +10,21 @@ class CidadeApi{
 
   Future <List> getJson() async{
 
-  String url = "http://192.168.1.5:8000/api/cidades/index_api";
+  String url = "http://192.168.1.7:8000/api/cidades/index_api";
 
   //String url = Utils.URL_WEB_SERVICE + URL_API_CIDADES;
   http.Response response = await http.post(url);
 
   if(response.statusCode == 200){
 
-    var db = DBAvaliacoes();
+    DBAvaliacoes db = new DBAvaliacoes();
+
+   /*if((db.contCidades() != null) && (await db.contCidades() > 0)) {
     //Limpar dados da Tabela:
-    await  db.deletarTabelaCidade();
+    await db.deletarTabelaCidade();
+    }*/
+    await db.deletarTabelaCidade();
+
     //Pegar dados da API:
     List _dados = json.decode(response.body);
 

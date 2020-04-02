@@ -70,7 +70,7 @@ class DBAvaliacoes {
   /******************CRUD CIDADES******************/
 
   Future <int> inserirCidade (Cidade cidadeModel) async {
-    print("Dentro do insert: "+ cidadeModel.descricao_cidade);
+   // print("Dentro do insert: "+ cidadeModel.descricao_cidade);
     var dbCidade = await db;
     int res = await dbCidade.insert("$tabelaCidade", cidadeModel.toMap());
     return res;
