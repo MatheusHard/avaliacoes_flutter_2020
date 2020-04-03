@@ -18,7 +18,13 @@ class Textos {
   String sub05_clareza_ex = "Clareza na Exposição:";
   String sub06_disponibilidade = "Disponibilidade para esclarecer dúvidas:";
 
-  String sim1 = "Proporcionou Novos Conhecimentos";
-  String nao1 = "Não proporcionou Novos Conhecimentos";
+  String proporcionou_1 = "Proporcionou Novos Conhecimentos";
+  String nao_proporcionou_1 = "Não proporcionou Novos Conhecimentos";
+
+  String muito_bom = "Muito Bom";
+  String bom = "Bom";
+  String regular = "Regular";
+  String ruim = "Ruim";
+
 
 }

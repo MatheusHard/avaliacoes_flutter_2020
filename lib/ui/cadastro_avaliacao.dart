@@ -80,11 +80,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   int _r9 = 0;
   int _r10 = 0;
 
-  int _group01 = 0;
-  int _radioSim1 = 0;
-  int _radioNao1 = 0;
-  double valor = 5;
-  String label = "Valor Selecionado";
+ String label = "Valor Selecionado";
 
 
   @override
@@ -128,9 +124,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
               _textoSubtitulo(Textos().sub01_aplicacao),
 
-
+              /**********RADIO 01**********/
               RadioListTile(
-                      title: _textoNormal(Textos().sim1) ,
+                      title: _textoNormal(Textos().proporcionou_1) ,
                       value: 1,
                       activeColor: Colors.greenAccent,
                       groupValue: _r1,
@@ -141,7 +137,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                       }
                   ),
                   RadioListTile(
-                      title: _textoNormal(Textos().nao1) ,
+                      title: _textoNormal(Textos().nao_proporcionou_1) ,
                       value: 2,
                       activeColor: Colors.redAccent,
                       groupValue: _r1,
@@ -152,55 +148,95 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                       }
                   ),
 
-              _textoSubtitulo(Textos().sub01_aplicacao),
+              /**********RADIO 02**********/
 
-              RadioListTile(
-                  title: Text(Textos().sim1) ,
-                  value: 1,
-                  activeColor: Colors.greenAccent,
-                  groupValue: _group01,
-                  onChanged: (int escolha){
-                    setState(() {
-                      _group01 = escolha;
-                    });
-                  }
-              ),
-              RadioListTile(
-                  title: Text(Textos().nao1) ,
-                  value: 2,
-                  activeColor: Colors.redAccent,
-                  groupValue: _group01,
-                  onChanged: (int escolha){
-                    setState(() {
-                      _group01 = escolha;
-                    });
-                  }
+              _textoSubtitulo(Textos().sub02_clareza),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                              activeColor: Colors.greenAccent,
+                              value: 1,
+                              groupValue: _r2,
+                              onChanged: (int escolha){
+                              setState(() {
+                                _r2 = escolha;
+                              });
+                            },
+                          ),
+                      ),
+                   ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r2,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r2 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r2,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r2 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r2,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r2 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+
+
+
+                  ],
+                ),
               ),
 
-               _textoSubtitulo(Textos().sub02_clareza),
 
-              RadioListTile(
-                  title: Text(Textos().sim1) ,
-                  value: 1,
-                  activeColor: Colors.greenAccent,
-                  groupValue: _group01,
-                  onChanged: (int escolha){
-                    setState(() {
-                      _group01 = escolha;
-                    });
-                  }
-              ),
-              RadioListTile(
-                  title: Text(Textos().nao1) ,
-                  value: 2,
-                  activeColor: Colors.redAccent,
-                  groupValue: _group01,
-                  onChanged: (int escolha){
-                    setState(() {
-                      _group01 = escolha;
-                    });
-                  }
-              ),
+
               RaisedButton(
                 child: Text("Aperte",
                   style: TextStyle(
@@ -224,7 +260,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
      a = new Avaliacao();
 
       //Validação 02:
-      if(_r1 > 0 ){
+      if(_r1 > 0 && _r2 > 0){
 
       /*********Radio 01*********/
 
@@ -239,16 +275,32 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
             break;
           }
 
-      /*  switch(_r2){
+          switch(_r2){
           case 1:
-            _radioSim1 = 1;
-            _radioNao1 = 0;
+            a.radioMuito_2 = 1;
+            a.radiobom_2 = 0;
+            a.radioRegular_2 = 0;
+            a.radioRuim_2 = 0;
             break;
           case 2:
-            _radioNao1 = 1;
-            _radioSim1 = 0;
+            a.radioMuito_2 = 0;
+            a.radiobom_2 = 1;
+            a.radioRegular_2 = 0;
+            a.radioRuim_2 = 0;
             break;
-        }*/
+          case 3:
+              a.radioMuito_2 = 0;
+              a.radiobom_2 = 0;
+              a.radioRegular_2 = 1;
+              a.radioRuim_2 = 0;
+              break;
+          case 4:
+              a.radioMuito_2 = 0;
+              a.radiobom_2 = 0;
+              a.radioRegular_2 = 0;
+              a.radioRuim_2 = 1;
+              break;
+        }
       //Fim validação 02:
     }else{ print("Preencha uma opção, por favor!!!");}
 
@@ -259,9 +311,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
 
 
-    print("Resultado: " + _group01.toString()
-        + " -- Sim: " + a.radioSim_1.toString()
-        + " -- Não:"  +a.radioNao_1.toString());
+    print("Resultado: " + _r1.toString()
+
+        + " -- Muito: "  +a.radioMuito_2.toString()
+        + " -- Bom: "  +  a.radiobom_2.toString()
+        + " -- Regular: "  + a.radioRegular_2.toString()
+        + " -- Ruim : "  +a.radioRuim_2.toString());
 
   }
 
@@ -302,8 +357,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
         child:  Text(valor,
           style: TextStyle(
-              color: Colors.black26,
-              fontSize: 12.0,
+              color: Colors.black38,
+              fontSize: 15.0,
               fontWeight: FontWeight.bold
           ),
         )
