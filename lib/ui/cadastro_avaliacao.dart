@@ -255,61 +255,92 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   }
 
   void _resultado (){
+    //TODO
+    int posicao = 1;
+    int tipo_profissional = 1;
+
     Avaliacao a;
     setState(() {
      a = new Avaliacao();
+     //TODO
+     a.nomeAgente = "Matheus";
+     a.cpf = "123";
 
-      //Validação 02:
-      if(_r1 > 0 && _r2 > 0){
+     //Validação 01:
+     if(posicao > 0 ) {
+       //Validação 02:
+       if (!(a.nomeAgente == "") && !(a.nomeAgente == null)) {
+         //Validação 03:
+         if (tipo_profissional > 0) {
+           //Validação 04:
+           if (!(a.cpf == "") && !(a.cpf == null)) {
+             //Validação 05:
+             if (_r1 > 0 && _r2 > 0) {
 
-      /*********Radio 01*********/
+               /*********Radio 01*********/
 
-        switch(_r1){
-          case 1:
-            a.radioSim_1 = 1;
-            a.radioNao_1 = 0;
-            break;
-          case 2:
-            a.radioSim_1 = 0;
-            a.radioNao_1 = 1;
-            break;
-          }
+               switch (_r1) {
+                 case 1:
+                   a.radioSim_1 = 1;
+                   a.radioNao_1 = 0;
+                   break;
+                 case 2:
+                   a.radioSim_1 = 0;
+                   a.radioNao_1 = 1;
+                   break;
+               }
 
-          switch(_r2){
-          case 1:
-            a.radioMuito_2 = 1;
-            a.radiobom_2 = 0;
-            a.radioRegular_2 = 0;
-            a.radioRuim_2 = 0;
-            break;
-          case 2:
-            a.radioMuito_2 = 0;
-            a.radiobom_2 = 1;
-            a.radioRegular_2 = 0;
-            a.radioRuim_2 = 0;
-            break;
-          case 3:
-              a.radioMuito_2 = 0;
-              a.radiobom_2 = 0;
-              a.radioRegular_2 = 1;
-              a.radioRuim_2 = 0;
-              break;
-          case 4:
-              a.radioMuito_2 = 0;
-              a.radiobom_2 = 0;
-              a.radioRegular_2 = 0;
-              a.radioRuim_2 = 1;
-              break;
-        }
-      //Fim validação 02:
-    }else{ print("Preencha uma opção, por favor!!!");}
+               /*********Radio 01*********/
 
+               switch (_r2) {
+                 case 1:
+                   a.radioMuito_2 = 1;
+                   a.radiobom_2 = 0;
+                   a.radioRegular_2 = 0;
+                   a.radioRuim_2 = 0;
+                   break;
+                 case 2:
+                   a.radioMuito_2 = 0;
+                   a.radiobom_2 = 1;
+                   a.radioRegular_2 = 0;
+                   a.radioRuim_2 = 0;
+                   break;
+                 case 3:
+                   a.radioMuito_2 = 0;
+                   a.radiobom_2 = 0;
+                   a.radioRegular_2 = 1;
+                   a.radioRuim_2 = 0;
+                   break;
+                 case 4:
+                   a.radioMuito_2 = 0;
+                   a.radiobom_2 = 0;
+                   a.radioRegular_2 = 0;
+                   a.radioRuim_2 = 1;
+                   break;
+               }
+               //Fim validação 01:
+              }else{
+               print("Selecione todos os campos!!!");
+             }
+             //Fim validação 02:
+           }else{
+             print("Digite o Cpf!!!");
+           }
+         //Fim validação 03:
+         }else {
+           print("Digite qual Profissão!!!");
+         }
+       //Fim validação 04:
+       }else {
+       print("Digite o nome do Profissional!!");
+      }
+     //Fim validação 05:
+     }else {
+    print("Selecione a Cidade!!!");
+    }
 
     }
       );
-
-
-
 
     print("Resultado: " + _r1.toString()
 
