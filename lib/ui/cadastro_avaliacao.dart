@@ -1,6 +1,7 @@
 import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
+import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,14 +22,16 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   static List<Cidade> getCidades(){
 
     return <Cidade> [
-      Cidade("Cabedelo", 16),
-      Cidade("João PEssoa", 16),
-      Cidade("Recife", 17),
-      Cidade("Paulista", 17),
+      Cidade("Cabedelo/PB", 16),
+      Cidade("João PEssoa/PB", 16),
+      Cidade("Recife/PE", 17),
+      Cidade("Paulista/PE", 17),
     ];
   }
-
   List<Cidade> _cidades = getCidades();
+
+
+
   List<DropdownMenuItem<Cidade>> _dropdownMenuItems;
   Cidade _selectedCidade;
 
@@ -122,6 +125,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               ),
 
 
+              _textotitulo(Textos().titulo01),
               _textoSubtitulo(Textos().sub01_aplicacao),
 
               /**********RADIO 01**********/
@@ -149,7 +153,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
 
               /**********RADIO 02**********/
-
+              _textotitulo(Textos().titulo02),
               _textoSubtitulo(Textos().sub02_clareza),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -228,13 +232,633 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                       ),
                     ),
                     _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
 
+              /**********RADIO 03**********/
 
+              _textoSubtitulo(Textos().sub01_aplicacao),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+
+                  RadioListTile(
+                        title: _textoNormal(Textos().seguro) ,
+                        value: 1,
+                        activeColor: Colors.greenAccent,
+                        groupValue: _r3,
+                        onChanged: (int escolha){
+                          setState(() {
+                            _r3 = escolha;
+                          });
+                        }
+                    ),
+                 RadioListTile(
+                        title: _textoNormal(Textos().pouco_seguro) ,
+                        value: 2,
+                        activeColor: Colors.yellowAccent,
+                        groupValue: _r3,
+                        onChanged: (int escolha){
+                          setState(() {
+                            _r3 = escolha;
+                          });
+                        }
+                    ),
+
+                    RadioListTile(
+                        title: _textoNormal(Textos().inseguro) ,
+                        value: 3,
+                        activeColor: Colors.redAccent,
+                        groupValue: _r3,
+                        onChanged: (int escolha){
+                          setState(() {
+                            _r3 = escolha;
+                          });
+                        }
+                    ),
+
+                   ],
+                ),
+              ),
+
+              /**********RADIO 04**********/
+
+              _textoSubtitulo(Textos().sub03_carga),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r4 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().excessiva),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          value: 2,
+                          groupValue: _r4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r4 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().razoavel),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r4,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r4 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().insuficiente),
 
                   ],
                 ),
               ),
 
+              /**********RADIO 05**********/
+
+              _textotitulo(Textos().titulo03_instru),
+              _textoSubtitulo(Textos().sub04_conhecimento),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r5,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r5 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r5,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r5 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r5,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r5 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r5,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r5 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
+
+              /**********RADIO 06**********/
+
+                    _textoSubtitulo(Textos().sub05_clareza_ex),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: Radio(
+                                activeColor: Colors.greenAccent,
+                                value: 1,
+                                groupValue: _r6,
+                                onChanged: (int escolha){
+                                  setState(() {
+                                    _r6 = escolha;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          _textoNormal(Textos().muito_bom),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: Radio(
+                                activeColor: Colors.blueAccent,
+                                value: 2,
+                                groupValue: _r6,
+                                onChanged: (int escolha){
+                                  setState(() {
+                                    _r6 = escolha;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          _textoNormal(Textos().bom),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: Radio(
+                                activeColor: Colors.yellowAccent,
+                                groupValue: _r6,
+                                value: 3,
+                                onChanged: (int escolha){
+                                  setState(() {
+                                    _r6 = escolha;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          _textoNormal(Textos().regular),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: Radio(
+                                activeColor: Colors.redAccent,
+                                groupValue: _r6,
+                                value: 4,
+                                onChanged: (int escolha){
+                                  setState(() {
+                                    _r6 = escolha;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          _textoNormal(Textos().ruim)
+
+                  ],
+                ),
+              ),
+
+              /**********RADIO 07**********/
+
+              _textoSubtitulo(Textos().sub06_disponibilidade),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r7,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r7 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r7,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r7 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r7,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r7 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r7,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r7 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
+
+              /**********RADIO 08**********/
+
+              _textotitulo(Textos().titulo04_equi),
+              _textoSubtitulo(Textos().sub04_conhecimento),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r8,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r8 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r8,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r8 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r8,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r8 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r8,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r8 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
+
+              /**********RADIO 09**********/
+
+              _textoSubtitulo(Textos().sub05_clareza_ex),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r9,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r9 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r9,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r9 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r9,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r9 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r9,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r9 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
+
+              /**********RADIO 10**********/
+
+              _textoSubtitulo(Textos().sub06_disponibilidade),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.greenAccent,
+                          value: 1,
+                          groupValue: _r10,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r10 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().muito_bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.blueAccent,
+                          value: 2,
+                          groupValue: _r10,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r10 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().bom),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.yellowAccent,
+                          groupValue: _r10,
+                          value: 3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r10 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().regular),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Radio(
+                          activeColor: Colors.redAccent,
+                          groupValue: _r10,
+                          value: 4,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r10 = escolha;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    _textoNormal(Textos().ruim)
+                  ],
+                ),
+              ),
+              /***************************/
 
 
               RaisedButton(
@@ -275,7 +899,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
            //Validação 04:
            if (!(a.cpf == "") && !(a.cpf == null)) {
              //Validação 05:
-             if (_r1 > 0 && _r2 > 0) {
+             if (_r1 > 0 && _r2 > 0 && _r3 > 0 && _r4 > 0 && _r5 > 0 && _r6 > 0 && _r7 > 0 && _r8 > 0 && _r9 > 0 && _r10 > 0){
 
                /*********Radio 01*********/
 
@@ -290,7 +914,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                    break;
                }
 
-               /*********Radio 01*********/
+               /*********Radio 02*********/
 
                switch (_r2) {
                  case 1:
@@ -316,6 +940,46 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                    a.radiobom_2 = 0;
                    a.radioRegular_2 = 0;
                    a.radioRuim_2 = 1;
+                   break;
+               }
+
+               /*********Radio 03*********/
+
+               switch (_r3) {
+                 case 1:
+                   a.radioSeguro_3 = 1;
+                   a.radioPoucoSeguro_3 = 0;
+                   a.radioInseguro_3 = 0;
+                   break;
+                 case 2:
+                   a.radioSeguro_3 = 0;
+                   a.radioPoucoSeguro_3 = 1;
+                   a.radioInseguro_3 = 0;
+                   break;
+                 case 3:
+                   a.radioSeguro_3 = 0;
+                   a.radioPoucoSeguro_3 = 0;
+                   a.radioInseguro_3 = 1;
+                   break;
+               }
+
+               /*********Radio 04*********/
+
+               switch (_r4) {
+                 case 1:
+                   a.radioExcessiva_4 = 1;
+                   a.radioRazoavel_4 = 0;
+                   a.RadioInsuficiente_4 = 0;
+                   break;
+                 case 2:
+                   a.radioExcessiva_4 = 0;
+                   a.radioRazoavel_4 = 1;
+                   a.RadioInsuficiente_4 = 0;
+                   break;
+                 case 3:
+                   a.radioExcessiva_4 = 0;
+                   a.radioRazoavel_4 = 0;
+                   a.RadioInsuficiente_4 = 1;
                    break;
                }
                //Fim validação 01:
@@ -344,10 +1008,13 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
     print("Resultado: " + _r1.toString()
 
-        + " -- Muito: "  +a.radioMuito_2.toString()
-        + " -- Bom: "  +  a.radiobom_2.toString()
-        + " -- Regular: "  + a.radioRegular_2.toString()
-        + " -- Ruim : "  +a.radioRuim_2.toString());
+        + " -- Cidade: "  +_selectedCidade.descricao_cidade
+        + " -- Muito: "  +a.radioSeguro_3.toString()
+        + " -- BOm: "  +  a.radioPoucoSeguro_3.toString()
+        + " -- Regular: "  + a.radioInseguro_3.toString()
+        + " -- Ruim: "  + a.radioInseguro_3.toString()
+
+    );
 
   }
 
@@ -359,7 +1026,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         padding: const EdgeInsets.all(8.0),
         child:  Text(valor,
           style: TextStyle(
-              color: Colors.black26,
+              color: Colors.redAccent,
               fontSize: 25.0,
               fontWeight: FontWeight.bold
           ),
@@ -396,4 +1063,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     );
     return texto;
   }
+
+  //List _cidades =  db.getCidades();
+  DBAvaliacoes db = new DBAvaliacoes();
+
 }
