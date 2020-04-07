@@ -1,4 +1,5 @@
 
+import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
 import 'package:flutter/material.dart';
@@ -50,24 +51,64 @@ void main() async {
   //print("Cidade: $resultado");
 
   runApp(
-      //new Home()
+
     new MaterialApp(
-      home: Cadastro_Avaliacao()
+        home:  Home()
+      //home: Cadastro_Avaliacao()
   )
 
   );
 }
-class Home extends StatelessWidget {
+
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _currentIndex = 0;
+  final tabs = [
+    Center(child: Text("AVS")),
+    Center(child: Text("SINCRONIZAR")),
+    Center(child: Text("EXIT"))
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Avaliações"),
-          backgroundColor: Colors.black38,
-          centerTitle: true,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+
+        title: Text("Avaliações"),
+
+        backgroundColor: Colors.lightGreen,
+        centerTitle: true,
       ),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.shifting,
+        selectedFontSize: 12.0,
+        iconSize: 20,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.add, color: Colors.white,),
+              backgroundColor: Colors.greenAccent,
+              title: Text(Textos().cadastrar, style: TextStyle(color: Colors.white),)),
+          BottomNavigationBarItem(icon: Icon(Icons.cloud_download, color: Colors.white,),
+              backgroundColor: Colors.blueAccent,
+              title: Text(Textos().sincronizar, style: TextStyle(color: Colors.white),)),
+          BottomNavigationBarItem(icon: Icon(Icons.exit_to_app, color: Colors.white,),
+              backgroundColor: Colors.redAccent,
+              title: Text(Textos().sair, style: TextStyle(color: Colors.white),)),
+
+        ],
+        onTap: (index){
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+
     );
   }
 }

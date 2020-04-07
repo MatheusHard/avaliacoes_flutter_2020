@@ -1,5 +1,11 @@
 class Textos {
 
+  String cadastrar = "Cadastrar";
+  String sincronizar = "Sincronizar";
+  String sair = "Sair";
+
+
+
   String titulo00 = "Selecione a Cidade";
   String titulo01 = "Conteúdo Teórico";
   String titulo02 = "Conteúdo Prático";

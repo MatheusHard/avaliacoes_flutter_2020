@@ -16,6 +16,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
   TextEditingController _sugestaoController = new TextEditingController();
   TextEditingController _nomeController = new TextEditingController();
+  TextEditingController _cpfController = new TextEditingController();
 
   /************SPINNER************/
 
@@ -28,15 +29,14 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
       Cidade("Paulista/PE", 17),
     ];
   }
-  List<Cidade> _cidades = getCidades();
-
-
+  //List<Cidade> _cidades = getCidades();
+  List _cidades = getCidades();
 
   List<DropdownMenuItem<Cidade>> _dropdownMenuItems;
   Cidade _selectedCidade;
 
   @override
-  void initState(){
+  void initState (){
     _dropdownMenuItems = buildDropdownMenuItems(_cidades);
     _selectedCidade = _dropdownMenuItems[0].value;
     super.initState();
@@ -70,7 +70,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     });
   }
 
-/****************************8*********************************/
+/****************************RADIOS*********************************/
 
   int _r1 = 0;
   int _r2 = 0;
@@ -91,6 +91,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Entrada de dados"),
+        centerTitle: true,
+
       ),
       body: SingleChildScrollView(
       child: Padding(
@@ -124,6 +126,24 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                 ),
               ),
 
+
+              _textoNormal("PROFISSÃO"),
+
+
+              /**********CPF**********/
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                child: TextField(
+                  controller: _cpfController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: "Cpf:",
+                      hintText: "digite o cpf",
+                      icon: Icon(Icons.credit_card)
+                  ),
+                ),
+              ),
 
               _textotitulo(Textos().titulo01),
               _textoSubtitulo(Textos().sub01_aplicacao),
@@ -858,6 +878,19 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ],
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                child: TextField(
+                  controller: _sugestaoController,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                      labelText: "Sugestões:",
+                      hintText: "digite sua sugestão",
+                      icon: Icon(Icons.perm_identity)
+                  ),
+                ),
+              ),
               /***************************/
 
 
@@ -867,7 +900,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                       fontSize: 20
                   ),
                 ),
-                onPressed: _resultado
+                onPressed: _cadastarAvaliacao
               ),
 
             ],
@@ -878,7 +911,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     );
   }
 
-  void _resultado (){
+  void _cadastarAvaliacao (){
     //TODO
     int posicao = 1;
     int tipo_profissional = 1;
@@ -887,8 +920,10 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     setState(() {
      a = new Avaliacao();
      //TODO
-     a.nomeAgente = "Matheus";
-     a.cpf = "123";
+     a.nomeAgente = _nomeController.text;
+     a.sugestoes = _sugestaoController.text;
+     a.cpf = _cpfController.text;
+
 
      //Validação 01:
      if(posicao > 0 ) {
@@ -1013,6 +1048,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         + " -- BOm: "  +  a.radioPoucoSeguro_3.toString()
         + " -- Regular: "  + a.radioInseguro_3.toString()
         + " -- Ruim: "  + a.radioInseguro_3.toString()
+        + " -- Nome: "  + a.nomeAgente.toString()
+        + " -- Sugestão: "  + a.sugestoes.toString()
+        + " -- Cpf: "  + a.cpf.toString()
+
+
 
     );
 
