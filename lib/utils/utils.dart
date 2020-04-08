@@ -1,6 +1,8 @@
 
 
 
+import 'package:flutter/material.dart';
+
 class Utils {
 
 
@@ -15,6 +17,8 @@ class Utils {
    static final String ACE = "_ACE";
    static final String ACS = "_ACS";
    static String AGENTE = "";
+
+
 
 
   /*******validar Cpf********/

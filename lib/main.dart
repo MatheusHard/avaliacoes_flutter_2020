@@ -1,4 +1,5 @@
 
+import 'package:avaliacao_json_novo/loaders/loader_1.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
@@ -71,10 +72,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final tabs = [
-    Center(child:Text("Home")),
-    Center(child:Text("Cadastro")),
-    Center(child:  ModuloSincronismo().sincronismo()),
-    Center(child: Text("EXIT"))
+    Center(child:   Text("Home")),
+    Center(child:  Cadastro_Avaliacao()),
+    Center(child:  Sincronismo()),
+    Center(child:  Text("EXIT"))
   ];
 
   @override

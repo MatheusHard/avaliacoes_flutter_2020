@@ -35,6 +35,9 @@ class CidadeApi{
     //Fechar o DB:
     //await db.closeDb();
     return json.decode(response.body);
+    
+
+
 
 
   }else{
