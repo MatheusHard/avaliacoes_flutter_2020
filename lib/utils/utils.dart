@@ -6,19 +6,17 @@ import 'package:flutter/material.dart';
 class Utils {
 
 
-   static final String URL_WEB_SERVICE = "http://192.168.1.5:8000/";
+   String URL_WEB_SERVICE = "http://192.168.1.5:8000/";
 
-   static final int CONNECTION_TIMEOUT = 10000;
-   static final int READ_TIMEOUT = 15000;
+   int CONNECTION_TIMEOUT = 10000;
+   int READ_TIMEOUT = 15000;
 
-   static final int TIPO_ACS = 1;
-   static final int TIPO_ACE = 2;
+   int TIPO_ACS = 1;
+   int TIPO_ACE = 2;
 
-   static final String ACE = "_ACE";
-   static final String ACS = "_ACS";
-   static String AGENTE = "";
-
-
+   String ACE = "_ACE";
+   String ACS = "_ACS";
+   String AGENTE = "";
 
 
   /*******validar Cpf********/
@@ -86,9 +84,19 @@ class Utils {
   }
 
 /**************************************************************************************/
-
-
-
-
-
 }
+class ShowSnackBar {
+
+  void showDefaultSnackbar(BuildContext context, String texto) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(texto),
+        action: SnackBarAction(
+          label: 'Click Me',
+          onPressed: () {},
+        ),
+      ),
+    );
+  }
+  }
+

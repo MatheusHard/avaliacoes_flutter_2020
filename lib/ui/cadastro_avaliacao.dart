@@ -2,6 +2,7 @@ import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
+import 'package:avaliacao_json_novo/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -1019,23 +1020,23 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                }
                //Fim validação 01:
               }else{
-               print("Selecione todos os campos!!!");
+              ShowSnackBar().showDefaultSnackbar(context, "Selecione todos os campos!!!");
              }
              //Fim validação 02:
            }else{
-             print("Digite o Cpf!!!");
-           }
+             ShowSnackBar().showDefaultSnackbar(context, "Digite o Cpf!!!");
+          }
          //Fim validação 03:
          }else {
-           print("Digite qual Profissão!!!");
+           ShowSnackBar().showDefaultSnackbar(context, "Digite qual Profissão!!!");
          }
        //Fim validação 04:
        }else {
-       print("Digite o nome do Profissional!!");
+         ShowSnackBar().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
       }
      //Fim validação 05:
      }else {
-    print("Selecione a Cidade!!!");
+       ShowSnackBar().showDefaultSnackbar(context, "Selecione a Cidade!!!");
     }
 
     }

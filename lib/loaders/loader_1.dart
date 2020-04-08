@@ -3,6 +3,8 @@ import 'dart:math';
 
 class ColorLoader5 extends StatefulWidget {
 
+  /*****By Samarth Agarwal*****/
+
   final Color dotOneColor;
   final Color dotTwoColor;
   final Color dotThreeColor;

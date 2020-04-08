@@ -3,6 +3,7 @@ import 'package:avaliacao_json_novo/apis/uf_api.dart';
 import 'package:avaliacao_json_novo/loaders/loader_1.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +21,8 @@ class _SincronismoState extends State<Sincronismo> {
         children: <Widget>[
 
           RaisedButton(
-            onPressed: _sincronizar(context, "Salvo com sucesso!!!"),
-
+            //onPressed: () => ShowSnackBar().showDefaultSnackbar(context, "SALVO"),
+            onPressed:  () => _sincronizar(context, "Sincronizado com sucesso!!!"),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(80.0),
             ),
@@ -53,23 +54,22 @@ class _SincronismoState extends State<Sincronismo> {
     );
   }
 
-  _sincronizar  (BuildContext context, String texto){
-
-    Center(child: ColorLoader5(),);
+  _sincronizar (BuildContext context, String texto){
 
     CidadeApi().getJson();
     UfApi().getJson();
-   // showSnackBar(context, texto);
+    ShowSnackBar().showDefaultSnackbar(context, texto);
 
   }
 
-  void showSnackBar(BuildContext context, String texto) {
-    final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
+  void showDefaultSnackbar(BuildContext context) {
+    Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text(texto),
+        content: Text('Hello from the default snackbar'),
         action: SnackBarAction(
-            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+          label: 'Click Me',
+          onPressed: () {},
+        ),
       ),
     );
   }
