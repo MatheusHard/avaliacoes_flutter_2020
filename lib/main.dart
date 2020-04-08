@@ -2,6 +2,7 @@
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
+import 'package:avaliacao_json_novo/ui/sincronizar_avaliacoes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,7 +12,7 @@ import 'models/Avaliacao.dart';
 
 void main() async {
 
-  //DBAvaliacoes db = new DBAvaliacoes();
+  DBAvaliacoes db = new DBAvaliacoes();
  // var a = new Avaliacao();
   //a.dataHora = DateTime.now();
 
@@ -37,13 +38,13 @@ void main() async {
 
   //await db.inserirUf(new Uf("PB"));
   //PEgar Ufs:
- /* List _dados = await db.getCidades();
+  List _dados = await db.getCidades();
 
 
   for(int i = 0; i < _dados.length; i++) {
     print(_dados[i]['id']);
     print(_dados[i]['descricao_cidade']);
-  }*/
+  }
 
   //Add Cidade:
 
@@ -61,6 +62,7 @@ void main() async {
 }
 
 
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -69,8 +71,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final tabs = [
-    Center(child: Text("AVS")),
-    Center(child: Text("SINCRONIZAR")),
+    Center(child:Text("Home")),
+    Center(child:Text("Cadastro")),
+    Center(child:  ModuloSincronismo().sincronismo()),
     Center(child: Text("EXIT"))
   ];
 
@@ -91,6 +94,9 @@ class _HomeState extends State<Home> {
         selectedFontSize: 12.0,
         iconSize: 20,
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.white,),
+              backgroundColor: Colors.purpleAccent,
+              title: Text(Textos().home, style: TextStyle(color: Colors.white),)),
           BottomNavigationBarItem(icon: Icon(Icons.add, color: Colors.white,),
               backgroundColor: Colors.greenAccent,
               title: Text(Textos().cadastrar, style: TextStyle(color: Colors.white),)),

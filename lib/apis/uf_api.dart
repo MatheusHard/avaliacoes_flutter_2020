@@ -10,7 +10,7 @@ class UfApi{
 
   Future <List> getJson() async{
 
-    String url = "http://192.168.1.5:8000/api/ufs/index_api";
+    String url = "http://192.168.1.8:8000/api/ufs/index_api";
 
     //String url = Utils.URL_WEB_SERVICE + URL_API_CIDADES;
     http.Response response = await http.post(url);

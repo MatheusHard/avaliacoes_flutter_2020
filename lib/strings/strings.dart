@@ -3,6 +3,7 @@ class Textos {
   String cadastrar = "Cadastrar";
   String sincronizar = "Sincronizar";
   String sair = "Sair";
+  String home = "Home";
 
 
 

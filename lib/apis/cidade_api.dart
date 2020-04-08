@@ -10,7 +10,7 @@ class CidadeApi{
 
   Future <List> getJson() async{
 
-  String url = "http://192.168.1.7:8000/api/cidades/index_api";
+  String url = "http://192.168.1.8:8000/api/cidades/index_api";
 
   //String url = Utils.URL_WEB_SERVICE + URL_API_CIDADES;
   http.Response response = await http.post(url);
@@ -35,6 +35,7 @@ class CidadeApi{
     //Fechar o DB:
     //await db.closeDb();
     return json.decode(response.body);
+
 
   }else{
     throw Exception("Falha na Conexão!!");
