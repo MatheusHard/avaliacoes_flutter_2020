@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
@@ -15,12 +17,31 @@ class Cadastro_Avaliacao extends StatefulWidget {
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
 
+
+
   TextEditingController _sugestaoController = new TextEditingController();
   TextEditingController _nomeController = new TextEditingController();
   TextEditingController _cpfController = new TextEditingController();
 
   /************SPINNER************/
 
+
+  /*static _getCitys  () async{
+    DBAvaliacoes db = new DBAvaliacoes();
+    var cidades =   await db.getCitys();
+    return cidades.cidades;
+  }
+
+
+
+  //This get in DB:
+  static _getCitys  () async{
+    DBAvaliacoes db = new DBAvaliacoes();
+    List cidades =   await db.getCitys();
+    return cidades;
+  }
+
+*/
   static List<Cidade> getCidades(){
 
     return <Cidade> [
@@ -30,14 +51,16 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
       Cidade("Paulista/PE", 17),
     ];
   }
-  //List<Cidade> _cidades = getCidades();
-  List _cidades = getCidades();
+
+
+  var _cidades = getCidades();
 
   List<DropdownMenuItem<Cidade>> _dropdownMenuItems;
   Cidade _selectedCidade;
 
   @override
   void initState (){
+
     _dropdownMenuItems = buildDropdownMenuItems(_cidades);
     _selectedCidade = _dropdownMenuItems[0].value;
     super.initState();
@@ -46,7 +69,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   List<DropdownMenuItem<Cidade>> buildDropdownMenuItems (List cidades){
     List<DropdownMenuItem<Cidade>> items = List();
     for(Cidade cidade in cidades){
-      items.add(
+    //for(int i=0; i < cidades.length; i++){
+    items.add(
         DropdownMenuItem(
 
           value: cidade,
@@ -89,13 +113,14 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Entrada de dados"),
-        centerTitle: true,
+  //  _getCitys();
 
-      ),
-      body: SingleChildScrollView(
+    return Scaffold(
+
+      body:
+      
+      SingleChildScrollView(
+
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
         child: Container(
@@ -106,7 +131,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
-                child: DropdownButton(
+                child:
+                DropdownButton(
+
                     isExpanded: true,
                     value: _selectedCidade,
                     items: _dropdownMenuItems,
@@ -1020,23 +1047,23 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                }
                //Fim validação 01:
               }else{
-              ShowSnackBar().showDefaultSnackbar(context, "Selecione todos os campos!!!");
+              Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
              }
              //Fim validação 02:
            }else{
-             ShowSnackBar().showDefaultSnackbar(context, "Digite o Cpf!!!");
+             Utils().showDefaultSnackbar(context, "Digite o Cpf!!!");
           }
          //Fim validação 03:
          }else {
-           ShowSnackBar().showDefaultSnackbar(context, "Digite qual Profissão!!!");
+           Utils().showDefaultSnackbar(context, "Digite qual Profissão!!!");
          }
        //Fim validação 04:
        }else {
-         ShowSnackBar().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
+         Utils().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
       }
      //Fim validação 05:
      }else {
-       ShowSnackBar().showDefaultSnackbar(context, "Selecione a Cidade!!!");
+       Utils().showDefaultSnackbar(context, "Selecione a Cidade!!!");
     }
 
     }
@@ -1105,7 +1132,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     return texto;
   }
 
-  //List _cidades =  db.getCidades();
-  DBAvaliacoes db = new DBAvaliacoes();
+
 
 }
+
+
+
+
+

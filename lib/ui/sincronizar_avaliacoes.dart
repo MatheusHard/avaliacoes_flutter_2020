@@ -58,21 +58,10 @@ class _SincronismoState extends State<Sincronismo> {
 
     CidadeApi().getJson();
     UfApi().getJson();
-    ShowSnackBar().showDefaultSnackbar(context, texto);
+    Utils().showDefaultSnackbar(context, texto);
 
   }
 
-  void showDefaultSnackbar(BuildContext context) {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Hello from the default snackbar'),
-        action: SnackBarAction(
-          label: 'Click Me',
-          onPressed: () {},
-        ),
-      ),
-    );
-  }
 }
 
 

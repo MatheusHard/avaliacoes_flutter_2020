@@ -83,6 +83,14 @@ class DBAvaliacoes {
     return res.toList();
   }
 
+    getCitys () async {
+
+    var dbCidade = await db;
+    String sql = "SELECT * FROM $tabelaCidade";
+    List cidades = await dbCidade.rawQuery(sql);
+    return cidades;
+  }
+
   //Cont:
 Future<int> contCidades () async {
 

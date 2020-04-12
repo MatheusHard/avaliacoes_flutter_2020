@@ -83,9 +83,7 @@ class Utils {
         CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
   }
 
-/**************************************************************************************/
-}
-class ShowSnackBar {
+/**************Mostrar Texto**************/
 
   void showDefaultSnackbar(BuildContext context, String texto) {
     Scaffold.of(context).showSnackBar(
@@ -98,5 +96,9 @@ class ShowSnackBar {
       ),
     );
   }
+}
+class ShowSnackBar {
+
+
   }
 
