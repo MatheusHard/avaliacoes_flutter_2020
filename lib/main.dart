@@ -3,6 +3,7 @@ import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
 import 'package:avaliacao_json_novo/ui/sincronizar_avaliacoes.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -73,7 +74,7 @@ class _HomeState extends State<Home> {
   final tabs = [
     Center(child: Text("Home")),
     Center(child: Cadastro_Avaliacao()),
-    Center(child: Sincronismo()),
+    Sincronismo(),
     Center(child: Text("EXIT"))
   ];
 
@@ -88,7 +89,26 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: tabs[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CurvedNavigationBar(
+        items: <Widget>[
+           Icon(Icons.home, size: 20, color: Colors.white,),
+          Icon(Icons.add, size: 20, color: Colors.white,),
+          Icon(Icons.cloud_download, size: 20, color: Colors.white,),
+          Icon(Icons.exit_to_app, size: 20, color: Colors.white,),
+        ],
+        color: Colors.lightGreen,
+        buttonBackgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.white,
+        animationCurve: Curves.easeInCubic,
+        animationDuration: Duration(milliseconds: 600),
+        index: 0,
+        height: 50,
+        onTap: (index){
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ) /*BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.shifting,
         selectedFontSize: 12.0,
@@ -113,7 +133,7 @@ class _HomeState extends State<Home> {
             _currentIndex = index;
           });
         },
-      ),
+      ),*/
 
     );
   }

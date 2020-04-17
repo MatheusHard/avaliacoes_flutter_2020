@@ -1,6 +1,7 @@
 import 'package:avaliacao_json_novo/apis/cidade_api.dart';
 import 'package:avaliacao_json_novo/apis/uf_api.dart';
 import 'package:avaliacao_json_novo/loaders/loader_1.dart';
+import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
 
@@ -13,13 +14,48 @@ class Sincronismo extends StatefulWidget {
 }
 
 class _SincronismoState extends State<Sincronismo> {
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+  Future<String> facaAlgo() async {
+    return "algo";
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
+        FutureBuilder(
+        // quando você passa a Future para o widget, quando o FutureBuilder for reconstruído,
+        // ele vai TESTAR se esse objeto da classe Future é o mesmo de antes dele ser reconstruído,
+        // se forem diferentes, ele vai re chamar a Future
+
+        // nesse caso, ele Não vai refazer a chamada, porque o objeto já foi criado no initState e sempre será o mesmo
+        future: DBAvaliacoes().getCidades(),
+
+        // nesse caso, ele vai refazer a chamada, porque toda vez que a função facaAlgo é chamada, ela retorna um novo objeto
+        // da classe Future
+        //  future: facaAlgo(),
+        builder: (ctx, snapshot) {
+          if (!snapshot.hasData)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          return Center(
+            child:
+
+            Text(" fiz : ${snapshot.data}"),
+          );
+        },
+      ),
           RaisedButton(
             //onPressed: () => ShowSnackBar().showDefaultSnackbar(context, "SALVO"),
             onPressed:  () => _sincronizar(context, "Sincronizado com sucesso!!!"),
@@ -57,10 +93,18 @@ class _SincronismoState extends State<Sincronismo> {
   _sincronizar (BuildContext context, String texto){
 
     CidadeApi().getJson();
-    UfApi().getJson();
+     UfApi().getJson();
+
     Utils().showDefaultSnackbar(context, texto);
 
   }
+
+ getTudo() async {
+
+   DBAvaliacoes db = new DBAvaliacoes();
+   return  db.getCidades();
+
+ }
 
 }
 

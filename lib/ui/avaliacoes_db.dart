@@ -83,7 +83,7 @@ class DBAvaliacoes {
     return res.toList();
   }
 
-    getCitys () async {
+  getCitys () async {
 
     var dbCidade = await db;
     String sql = "SELECT * FROM $tabelaCidade";

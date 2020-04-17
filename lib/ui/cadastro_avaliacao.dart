@@ -16,6 +16,8 @@ class Cadastro_Avaliacao extends StatefulWidget {
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
+  List<Cidade> _listaCidades = List<Cidade>();
+
 
 
 
@@ -25,44 +27,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
   /************SPINNER************/
 
-
-  /*static _getCitys  () async{
-    DBAvaliacoes db = new DBAvaliacoes();
-    var cidades =   await db.getCitys();
-    return cidades.cidades;
-  }
-
-
-
-  //This get in DB:
-  static _getCitys  () async{
-    DBAvaliacoes db = new DBAvaliacoes();
-    List cidades =   await db.getCitys();
-    return cidades;
-  }
-
-*/
-  static List<Cidade> getCidades(){
-
-    return <Cidade> [
-      Cidade("Cabedelo/PB", 16),
-      Cidade("João PEssoa/PB", 16),
-      Cidade("Recife/PE", 17),
-      Cidade("Paulista/PE", 17),
-    ];
-  }
-
-
-  var _cidades = getCidades();
-
   List<DropdownMenuItem<Cidade>> _dropdownMenuItems;
   Cidade _selectedCidade;
 
   @override
   void initState (){
-
-    _dropdownMenuItems = buildDropdownMenuItems(_cidades);
-    _selectedCidade = _dropdownMenuItems[0].value;
+    getCidadess();
     super.initState();
   }
   
@@ -1132,7 +1102,24 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     return texto;
   }
 
+  getCidadess() async{
 
+    DBAvaliacoes db = new DBAvaliacoes();
+    List cidades = await db.getCitys();
+    List<Cidade> listaTemporaria = List<Cidade>();
+    for(int i = 0; i< cidades.length; i++){
+      Cidade c = Cidade.fromMap(cidades[i]);
+      listaTemporaria.add(c);
+    }
+    setState(() {
+      _listaCidades = listaTemporaria;
+      _dropdownMenuItems = buildDropdownMenuItems(_listaCidades);
+      _selectedCidade = _dropdownMenuItems[0].value;
+    });
+    listaTemporaria = null;
+    print(_listaCidades.toString());
+
+  }
 
 }
 
