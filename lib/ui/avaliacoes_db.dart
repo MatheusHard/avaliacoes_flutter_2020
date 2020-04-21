@@ -168,11 +168,10 @@ Future<Cidade> getCidade(int id) async{
 
   }
 
-  Future closeDb () async {
+  Future closeDb() async {
     var dbAvaliacoes = await db;
-    return  dbAvaliacoes.close();
-   }
-}
+    dbAvaliacoes.close();
+  }}
 
 
 

@@ -1,4 +1,4 @@
-
+import 'dart:convert';
 
 class Cidade {
 
@@ -7,6 +7,17 @@ class Cidade {
   int _uf_id;
 
   Cidade(this._descricao_cidade, this._uf_id);
+
+  Cidade.fromJson(Map<String, dynamic> json):
+
+      this._descricao_cidade = json['_descricao_cidade'],
+      this._uf_id = json['_uf_id'];
+
+  Map<String, dynamic> toJson() =>
+      {
+        'descricao_cidade': this._descricao_cidade,
+        'uf_id': this._uf_id,
+      };
 
   Cidade.map(dynamic obj){
 

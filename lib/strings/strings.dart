@@ -41,8 +41,6 @@ class Textos {
   String razoavel = "Razoavel";
   String insuficiente = "Insuficiente";
 
-
-
-
+  String validar_nome = "Insira o nome";
 
 }

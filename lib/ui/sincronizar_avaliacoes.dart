@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:avaliacao_json_novo/apis/cidade_api.dart';
 import 'package:avaliacao_json_novo/apis/uf_api.dart';
 import 'package:avaliacao_json_novo/loaders/loader_1.dart';
@@ -92,12 +94,32 @@ class _SincronismoState extends State<Sincronismo> {
 
   _sincronizar (BuildContext context, String texto){
 
-    CidadeApi().getJson();
-     UfApi().getJson();
+  CidadeApi().getJson(context);
 
-    Utils().showDefaultSnackbar(context, texto);
+
+    UfApi().getJson(context);
+
+    //Utils().showDefaultSnackbar(context, texto);
 
   }
+
+//  DBAvaliacoes db = new DBAvaliacoes();
+//  List cidades = await db.getCitys();
+//  List<Cidade> listaTemporaria = List<Cidade>();
+//  for(int i = 0; i< cidades.length; i++){
+//  Cidade c = Cidade.fromMap(cidades[i]);
+//  listaTemporaria.add(c);
+//  }
+//  setState(() {
+//  _listaCidades = listaTemporaria;
+//  _dropdownMenuItems = buildDropdownMenuItems(_listaCidades);
+//  _selectedCidade = _dropdownMenuItems[0].value;
+//  });
+//  listaTemporaria = null;
+//  print(_listaCidades.toString());
+//
+//}
+
 
  getTudo() async {
 

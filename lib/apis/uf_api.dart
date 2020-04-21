@@ -1,23 +1,27 @@
 import 'package:avaliacao_json_novo/models/Uf.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
+import 'package:avaliacao_json_novo/utils/utils.dart';
+import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class UfApi{
 
-  //static final String URL_API_CIDADES = "api/cidades/index";
+    String _textoOK = "Ufs sincronizadas....";
+    String _textoERRO = "Não foi possivel sincronizar UFS: ERRO(";
+    String _URL_API_UFS = "api/ufs/index_api";
+    String _complemento = ")";
 
-  Future <List> getJson() async{
+  Future <List> getJson(BuildContext context) async{
 
-    String url = "http://192.168.1.8:8000/api/ufs/index_api";
-
-    //String url = Utils.URL_WEB_SERVICE + URL_API_CIDADES;
-    http.Response response = await http.post(url);
+    String _url = Utils().URL_WEB_SERVICE + _URL_API_UFS;
+    http.Response response = await http.post(_url);
 
     if(response.statusCode == 200){
 
-      var db = DBAvaliacoes();
+      DBAvaliacoes db = new DBAvaliacoes();
+      //var db = DBAvaliacoes();
       //Limpar dados da Tabela:
       await  db.deletarTabelaUf();
       //Pegar dados da API:
@@ -29,11 +33,13 @@ class UfApi{
       }
       //Fechar o DB:
       //await db.closeDb();
+     Utils().showDefaultSnackbar(context, _textoOK);
+
+    // await db.closeDb();
       return json.decode(response.body);
 
-
     }else{
-      throw Exception("Falha na Conexão!!");
+      Utils().showDefaultSnackbar(context, _textoERRO + response.statusCode.toString() + _complemento);
     }
   }
 }

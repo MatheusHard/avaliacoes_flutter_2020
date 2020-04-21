@@ -16,10 +16,19 @@ class Cadastro_Avaliacao extends StatefulWidget {
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
+  String _nomeAgente;
+  String _cpf;
+  String _sugestoes;
+
   List<Cidade> _listaCidades = List<Cidade>();
+  FocusNode _myFocusNode;
+  FocusNode _myFocusNode_2;
 
 
 
+
+
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController _sugestaoController = new TextEditingController();
   TextEditingController _nomeController = new TextEditingController();
@@ -33,6 +42,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   @override
   void initState (){
     getCidadess();
+    _myFocusNode = FocusNode();
+    _myFocusNode_2 = FocusNode();
+
     super.initState();
   }
   
@@ -95,6 +107,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
               _textoSubtitulo(Textos().titulo00),
@@ -103,7 +116,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                 padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
                 child:
                 DropdownButton(
-
+                   style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                    icon: Icon(Icons.location_city),
+                    hint: Text("Selecione a Cidade"),
                     isExpanded: true,
                     value: _selectedCidade,
                     items: _dropdownMenuItems,
@@ -111,37 +126,63 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               ),
               SizedBox(height: 10.0,),
               //Text("Selecionou: ${_selectedCidade.descricao_cidade}"),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                child: TextField(
-                  controller: _nomeController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      labelText: "Nome:",
-                      hintText: "digite o nome",
-                      icon: Icon(Icons.perm_identity)
+           
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+
+                  /**********Nome Profissional**********/
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                    child: TextFormField(
+                      controller: _nomeController,
+                      focusNode: _myFocusNode,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          labelText: "Nome:",
+                          hintText: "digite o nome",
+                          icon: Icon(Icons.perm_identity)
+                      ),
+                      validator: (value){
+                        if(value.isEmpty || value == ""){
+                          _myFocusNode.requestFocus();
+                          Utils().showDefaultSnackbar(context, "Insira seu nome!!!");
+                          return Textos().validar_nome;
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ),
 
+                  /**********CPF**********/
 
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                    child: TextFormField(
+                      controller: _cpfController,
+                      focusNode: _myFocusNode_2,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          labelText: "Cpf:",
+                          hintText: "digite o cpf",
+                          icon: Icon(Icons.credit_card)
+                      ),
+                      validator: (value){
+                        if(value.isEmpty || value == ""){
+                          _myFocusNode_2.requestFocus();
+                          Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+                          return Textos().validar_nome;
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              )),
+              
+              
               _textoNormal("PROFISSÃO"),
-
-
-              /**********CPF**********/
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                child: TextField(
-                  controller: _cpfController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      labelText: "Cpf:",
-                      hintText: "digite o cpf",
-                      icon: Icon(Icons.credit_card)
-                  ),
-                ),
-              ),
 
               _textotitulo(Textos().titulo01),
               _textoSubtitulo(Textos().sub01_aplicacao),
@@ -898,7 +939,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                       fontSize: 20
                   ),
                 ),
-                onPressed: _cadastarAvaliacao
+                onPressed: (){
+                  if(_formKey.currentState.validate()){
+                  _cadastarAvaliacao();
+                  }
+                }
               ),
 
             ],
@@ -918,19 +963,21 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     setState(() {
      a = new Avaliacao();
      //TODO
-     a.nomeAgente = _nomeController.text;
-     a.sugestoes = _sugestaoController.text;
-     a.cpf = _cpfController.text;
+
+
+     _nomeAgente = _nomeController.text;
+     _sugestoes = _sugestaoController.text;
+     _cpf = _cpfController.text;
 
 
      //Validação 01:
-     if(posicao > 0 ) {
+     if(_selectedCidade != null  && _selectedCidade.id > 1) {
        //Validação 02:
-       if (!(a.nomeAgente == "") && !(a.nomeAgente == null)) {
+      // if (!(_nomeAgente == "") && !(_nomeAgente == null)) {
          //Validação 03:
          if (tipo_profissional > 0) {
            //Validação 04:
-           if (!(a.cpf == "") && !(a.cpf == null)) {
+          // if (!(_cpf == "") && !(_cpf == null)) {
              //Validação 05:
              if (_r1 > 0 && _r2 > 0 && _r3 > 0 && _r4 > 0 && _r5 > 0 && _r6 > 0 && _r7 > 0 && _r8 > 0 && _r9 > 0 && _r10 > 0){
 
@@ -1020,17 +1067,17 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
              }
              //Fim validação 02:
-           }else{
-             Utils().showDefaultSnackbar(context, "Digite o Cpf!!!");
-          }
+//           }else{
+//             Utils().showDefaultSnackbar(context, "Digite o Cpf!!!");
+//          }
          //Fim validação 03:
          }else {
            Utils().showDefaultSnackbar(context, "Digite qual Profissão!!!");
          }
        //Fim validação 04:
-       }else {
-         Utils().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
-      }
+      // }else {
+        // Utils().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
+     // }
      //Fim validação 05:
      }else {
        Utils().showDefaultSnackbar(context, "Selecione a Cidade!!!");
@@ -1048,7 +1095,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         + " -- Ruim: "  + a.radioInseguro_3.toString()
         + " -- Nome: "  + a.nomeAgente.toString()
         + " -- Sugestão: "  + a.sugestoes.toString()
-        + " -- Cpf: "  + a.cpf.toString()
+        + " -- Cpf: "  + _cpf
 
 
 
