@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
+import 'package:avaliacao_json_novo/models/Profissional.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
@@ -16,17 +17,17 @@ class Cadastro_Avaliacao extends StatefulWidget {
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
+
+
   String _nomeAgente;
   String _cpf;
   String _sugestoes;
 
   List<Cidade> _listaCidades = List<Cidade>();
+  List<Profissional> _listaProfissionais = List<Profissional>();
+
   FocusNode _myFocusNode;
   FocusNode _myFocusNode_2;
-
-
-
-
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -34,21 +35,23 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   TextEditingController _nomeController = new TextEditingController();
   TextEditingController _cpfController = new TextEditingController();
 
-  /************SPINNER************/
-
-  List<DropdownMenuItem<Cidade>> _dropdownMenuItems;
-  Cidade _selectedCidade;
 
   @override
   void initState (){
-    getCidadess();
+    getCidades();
+    getProfissionais();
     _myFocusNode = FocusNode();
     _myFocusNode_2 = FocusNode();
 
     super.initState();
   }
+
+  /************DropDown Cidade************/
+
+  List<DropdownMenuItem<Cidade>> _dropdownMenuItemsCidades;
+  Cidade _selectedCidade;
   
-  List<DropdownMenuItem<Cidade>> buildDropdownMenuItems (List cidades){
+  List<DropdownMenuItem<Cidade>> buildDropdownMenuItemsCidades (List cidades){
     List<DropdownMenuItem<Cidade>> items = List();
     for(Cidade cidade in cidades){
     //for(int i=0; i < cidades.length; i++){
@@ -71,9 +74,42 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
    return items;
   }
 
-  onChangedDropdownItem(Cidade selectedCidade){
+  onChangedDropdownItemCidade(Cidade selectedCidade){
     setState(() {
       _selectedCidade = selectedCidade;
+    });
+  }
+  /************DropDown Cidade************/
+
+  List<DropdownMenuItem<Profissional>> _dropdownMenuItemsProfissionais;
+  Profissional _selectedProfissional;
+
+  List<DropdownMenuItem<Profissional>> buildDropdownMenuItemsProfissionais (List profissionais){
+    List<DropdownMenuItem<Profissional>> items = List();
+    for(Profissional profissional in profissionais){
+      //for(int i=0; i < cidades.length; i++){
+      items.add(
+          DropdownMenuItem(
+
+            value: profissional,
+            child: Center(
+              child: Text(profissional.descricao_profisssao.toUpperCase(),
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Colors.teal,
+                    fontSize: 15.0
+                ),),
+            ),
+          )
+      );
+
+    }
+    return items;
+  }
+
+  onChangedDropdownItemProfissional(Profissional selectedProfissional){
+    setState(() {
+      _selectedProfissional = selectedProfissional;
     });
   }
 
@@ -115,15 +151,32 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
                 child:
-                DropdownButton(
-                   style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+
+                InputDecorator(
+
+                  decoration: InputDecoration(
+
+                    border: InputBorder.none,
                     icon: Icon(Icons.location_city),
+                    labelText: Textos().titulo06_Cidade,
+                    labelStyle: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold
+                    )
+                  ),
+                  child:
+                DropdownButton(
+
+                    style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                   // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
+
                     hint: Text("Selecione a Cidade"),
                     isExpanded: true,
                     value: _selectedCidade,
-                    items: _dropdownMenuItems,
-                    onChanged: onChangedDropdownItem),
-              ),
+                    items: _dropdownMenuItemsCidades,
+                    onChanged: onChangedDropdownItemCidade),
+              )),
               SizedBox(height: 10.0,),
               //Text("Selecionou: ${_selectedCidade.descricao_cidade}"),
            
@@ -188,6 +241,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               _textoSubtitulo(Textos().sub01_aplicacao),
 
               /**********RADIO 01**********/
+
               RadioListTile(
                       title: _textoNormal(Textos().proporcionou_1) ,
                       value: 1,
@@ -225,6 +279,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
+
                               activeColor: Colors.greenAccent,
                               value: 1,
                               groupValue: _r2,
@@ -236,7 +291,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           ),
                       ),
                    ),
+
                     _textoNormal(Textos().muito_bom),
+
                     Flexible(
                       fit: FlexFit.loose,
                       child: SizedBox(
@@ -1149,24 +1206,44 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     return texto;
   }
 
-  getCidadess() async{
+  getCidades() async{
 
     DBAvaliacoes db = new DBAvaliacoes();
     List cidades = await db.getCitys();
     List<Cidade> listaTemporaria = List<Cidade>();
-    for(int i = 0; i< cidades.length; i++){
+    for(int i = 0; i < cidades.length; i++){
       Cidade c = Cidade.fromMap(cidades[i]);
       listaTemporaria.add(c);
     }
     setState(() {
       _listaCidades = listaTemporaria;
-      _dropdownMenuItems = buildDropdownMenuItems(_listaCidades);
-      _selectedCidade = _dropdownMenuItems[0].value;
+      _dropdownMenuItemsCidades = buildDropdownMenuItemsCidades(_listaCidades);
+      _selectedCidade = _dropdownMenuItemsCidades[0].value;
     });
     listaTemporaria = null;
     print(_listaCidades.toString());
 
   }
+
+   getProfissionais(){
+
+     List<Profissional> listaTemporaria = [
+      Profissional("ESCOLHA UMA OPÇÃO"),
+      Profissional("ACS"),
+      Profissional("ACE"),
+      Profissional("ENFERMEIRO(A)"),
+      Profissional("GESTOR MUNICIPAL")
+    ];
+
+     setState(() {
+       _listaProfissionais = listaTemporaria;
+       _dropdownMenuItemsProfissionais = buildDropdownMenuItemsProfissionais(_listaProfissionais);
+       _selectedProfissional = _dropdownMenuItemsProfissionais[0].value;
+     });
+     listaTemporaria = null;
+     print("Profissionais: "+_listaProfissionais.toString());
+
+   }
 
 }
 
