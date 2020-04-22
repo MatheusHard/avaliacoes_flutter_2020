@@ -17,8 +17,6 @@ class Cadastro_Avaliacao extends StatefulWidget {
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
-
-
   String _nomeAgente;
   String _cpf;
   String _sugestoes;
@@ -46,7 +44,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     super.initState();
   }
 
-  /************DropDown Cidade************/
+  /************DropDown Cidades************/
 
   List<DropdownMenuItem<Cidade>> _dropdownMenuItemsCidades;
   Cidade _selectedCidade;
@@ -54,7 +52,6 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   List<DropdownMenuItem<Cidade>> buildDropdownMenuItemsCidades (List cidades){
     List<DropdownMenuItem<Cidade>> items = List();
     for(Cidade cidade in cidades){
-    //for(int i=0; i < cidades.length; i++){
     items.add(
         DropdownMenuItem(
 
@@ -79,7 +76,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
       _selectedCidade = selectedCidade;
     });
   }
-  /************DropDown Cidade************/
+  /************DropDown Profissionais************/
 
   List<DropdownMenuItem<Profissional>> _dropdownMenuItemsProfissionais;
   Profissional _selectedProfissional;
@@ -146,7 +143,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              _textoSubtitulo(Textos().titulo00),
+              _textoTitulo(Textos().titulo00_dados),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
@@ -179,7 +176,38 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               )),
               SizedBox(height: 10.0,),
               //Text("Selecionou: ${_selectedCidade.descricao_cidade}"),
-           
+
+              /**Drop Profissionais**/
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
+                  child:
+
+                  InputDecorator(
+
+                    decoration: InputDecoration(
+
+                        border: InputBorder.none,
+                        icon: Icon(Icons.phonelink),
+                        labelText: Textos().titulo08_prof,
+                        labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                        )
+                    ),
+                    child:
+                    DropdownButton(
+
+                        style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                        // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
+
+                        hint: Text("Selecione a Profissão"),
+                        isExpanded: true,
+                        value: _selectedProfissional,
+                        items: _dropdownMenuItemsProfissionais,
+                        onChanged: onChangedDropdownItemProfissional),
+                  )),
+              SizedBox(height: 10.0,),
               Form(
                   key: _formKey,
                   child: Column(
@@ -233,11 +261,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
                 ],
               )),
-              
-              
-              _textoNormal("PROFISSÃO"),
 
-              _textotitulo(Textos().titulo01),
+              _textoTitulo(Textos().titulo01),
               _textoSubtitulo(Textos().sub01_aplicacao),
 
               /**********RADIO 01**********/
@@ -266,7 +291,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
 
               /**********RADIO 02**********/
-              _textotitulo(Textos().titulo02),
+              _textoTitulo(Textos().titulo02),
               _textoSubtitulo(Textos().sub02_clareza),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -470,7 +495,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
               /**********RADIO 05**********/
 
-              _textotitulo(Textos().titulo03_instru),
+              _textoTitulo(Textos().titulo03_instru),
               _textoSubtitulo(Textos().sub04_conhecimento),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -724,7 +749,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
               /**********RADIO 08**********/
 
-              _textotitulo(Textos().titulo04_equi),
+              _textoTitulo(Textos().titulo04_equi),
               _textoSubtitulo(Textos().sub04_conhecimento),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -983,13 +1008,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   decoration: InputDecoration(
                       labelText: "Sugestões:",
                       hintText: "digite sua sugestão",
-                      icon: Icon(Icons.perm_identity)
+                      icon: Icon(Icons.chat)
                   ),
                 ),
               ),
               /***************************/
-
-
+              SizedBox(height: 10.0,),
               RaisedButton(
                 child: Text("Aperte",
                   style: TextStyle(
@@ -1032,7 +1056,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
        //Validação 02:
       // if (!(_nomeAgente == "") && !(_nomeAgente == null)) {
          //Validação 03:
-         if (tipo_profissional > 0) {
+         if (_selectedProfissional != null && _selectedProfissional.id > 1) {
            //Validação 04:
           // if (!(_cpf == "") && !(_cpf == null)) {
              //Validação 05:
@@ -1123,19 +1147,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               }else{
               Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
              }
-             //Fim validação 02:
-//           }else{
-//             Utils().showDefaultSnackbar(context, "Digite o Cpf!!!");
-//          }
-         //Fim validação 03:
+           //Fim validação 02:
          }else {
-           Utils().showDefaultSnackbar(context, "Digite qual Profissão!!!");
+           Utils().showDefaultSnackbar(context, "Digite a Profissão!!!");
          }
-       //Fim validação 04:
-      // }else {
-        // Utils().showDefaultSnackbar(context, "Digite o nome do Profissional!!");
-     // }
-     //Fim validação 05:
+       //Fim validação 03:
      }else {
        Utils().showDefaultSnackbar(context, "Selecione a Cidade!!!");
     }
@@ -1153,6 +1169,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         + " -- Nome: "  + a.nomeAgente.toString()
         + " -- Sugestão: "  + a.sugestoes.toString()
         + " -- Cpf: "  + _cpf
+        + " -- Prof: "  + _selectedProfissional.id.toString()
 
 
 
@@ -1162,7 +1179,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
 
 
-  Padding _textotitulo(String valor){
+  Padding _textoTitulo(String valor){
 
     Padding texto = Padding(
         padding: const EdgeInsets.all(8.0),
@@ -1228,11 +1245,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
    getProfissionais(){
 
      List<Profissional> listaTemporaria = [
-      Profissional("ESCOLHA UMA OPÇÃO"),
-      Profissional("ACS"),
-      Profissional("ACE"),
-      Profissional("ENFERMEIRO(A)"),
-      Profissional("GESTOR MUNICIPAL")
+      Profissional(1, "ESCOLHA UMA OPÇÃO"),
+      Profissional(2, "ACS"),
+      Profissional(3, "ACE"),
+      Profissional(4, "ENFERMEIRO(A)"),
+      Profissional(5, "GESTOR MUNICIPAL")
     ];
 
      setState(() {

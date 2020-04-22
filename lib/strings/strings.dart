@@ -7,7 +7,7 @@ class Textos {
 
 
 
-  String titulo00 = "Selecione a Cidade";
+  String titulo00_dados = "Dados Cadastrais";
   String titulo01 = "Conteúdo Teórico";
   String titulo02 = "Conteúdo Prático";
   String titulo03_instru = "Instrutor";

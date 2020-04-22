@@ -4,7 +4,7 @@ class Profissional{
   int _id;
   String _descricao_profisssao;
 
-  Profissional(this._descricao_profisssao);
+  Profissional(this._id, this._descricao_profisssao);
 
   Profissional.map(dynamic obj){
 
