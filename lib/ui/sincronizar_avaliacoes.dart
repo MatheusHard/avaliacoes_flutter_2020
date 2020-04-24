@@ -16,7 +16,7 @@ class Sincronismo extends StatefulWidget {
 }
 
 class _SincronismoState extends State<Sincronismo> {
-
+   int cont = 1;
   @override
   void initState() {
 
@@ -35,7 +35,7 @@ class _SincronismoState extends State<Sincronismo> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-        FutureBuilder(
+       /* FutureBuilder(
         // quando você passa a Future para o widget, quando o FutureBuilder for reconstruído,
         // ele vai TESTAR se esse objeto da classe Future é o mesmo de antes dele ser reconstruído,
         // se forem diferentes, ele vai re chamar a Future
@@ -52,15 +52,15 @@ class _SincronismoState extends State<Sincronismo> {
               child: CircularProgressIndicator(),
             );
           return Center(
-            child:
+            //child:
 
-            Text(" fiz : ${snapshot.data}"),
+            //Text(" fiz : ${snapshot.data}"),
           );
         },
-      ),
+      ),*/
           RaisedButton(
-            //onPressed: () => ShowSnackBar().showDefaultSnackbar(context, "SALVO"),
-            onPressed:  () => _sincronizar(context, "Sincronizado com sucesso!!!"),
+
+            onPressed:  () => _sincronizar(context),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(80.0),
             ),
@@ -92,43 +92,30 @@ class _SincronismoState extends State<Sincronismo> {
     );
   }
 
-  _sincronizar (BuildContext context, String texto){
+  _sincronizar (BuildContext context) async{
 
-  CidadeApi().getJson(context);
+    int valorCidade;
+    int valorUf;
 
+ setState(() {
+  CidadeApi().getJson(context).then((value){
+    valorCidade = value;
+      UfApi().getJson(context).then((value){
+        valorUf = value;
+          if(valorCidade == 200 && valorUf == 200) {
+            Utils().showDefaultSnackbar(context, "Sincronizado com sucesso!!!");
+          }else {
+            Utils().showDefaultSnackbar(context, "Erro ao sincronizar: C("+valorCidade.toString()+")U("+valorUf.toString()+")");
+          }
+        });
+      });
+    });
 
-    UfApi().getJson(context);
-
-    //Utils().showDefaultSnackbar(context, texto);
-
+    }
   }
 
-//  DBAvaliacoes db = new DBAvaliacoes();
-//  List cidades = await db.getCitys();
-//  List<Cidade> listaTemporaria = List<Cidade>();
-//  for(int i = 0; i< cidades.length; i++){
-//  Cidade c = Cidade.fromMap(cidades[i]);
-//  listaTemporaria.add(c);
-//  }
-//  setState(() {
-//  _listaCidades = listaTemporaria;
-//  _dropdownMenuItems = buildDropdownMenuItems(_listaCidades);
-//  _selectedCidade = _dropdownMenuItems[0].value;
-//  });
-//  listaTemporaria = null;
-//  print(_listaCidades.toString());
-//
-//}
 
 
- getTudo() async {
-
-   DBAvaliacoes db = new DBAvaliacoes();
-   return  db.getCidades();
-
- }
-
-}
 
 
 

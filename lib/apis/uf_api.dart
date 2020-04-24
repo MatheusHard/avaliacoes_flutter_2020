@@ -8,12 +8,10 @@ import 'dart:convert';
 
 class UfApi{
 
-    String _textoOK = "Ufs sincronizadas....";
-    String _textoERRO = "Não foi possivel sincronizar UFS: ERRO(";
-    String _URL_API_UFS = "api/ufs/index_api";
-    String _complemento = ")";
 
-  Future <List> getJson(BuildContext context) async{
+    String _URL_API_UFS = "api/ufs/index_api";
+
+  Future<int> getJson(BuildContext context) async{
 
     String _url = Utils().URL_WEB_SERVICE + _URL_API_UFS;
     http.Response response = await http.post(_url);
@@ -23,7 +21,7 @@ class UfApi{
       DBAvaliacoes db = new DBAvaliacoes();
       //var db = DBAvaliacoes();
       //Limpar dados da Tabela:
-      await  db.deletarTabelaUf();
+      //await  db.deletarTabelaUf();
       //Pegar dados da API:
       List _dados = json.decode(response.body);
 
@@ -33,13 +31,14 @@ class UfApi{
       }
       //Fechar o DB:
       //await db.closeDb();
-     Utils().showDefaultSnackbar(context, _textoOK);
 
     // await db.closeDb();
-      return json.decode(response.body);
+      //return json.decode(response.body);
+      return response.statusCode;
 
     }else{
-      Utils().showDefaultSnackbar(context, _textoERRO + response.statusCode.toString() + _complemento);
+      return response.statusCode;
+
     }
   }
 }
