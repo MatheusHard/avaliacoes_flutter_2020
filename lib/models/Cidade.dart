@@ -1,12 +1,17 @@
 import 'dart:convert';
 
+import 'Uf.dart';
+
 class Cidade {
 
   int _id;
   String _descricao_cidade;
   int _uf_id;
+  Uf _uf;
 
-  Cidade(this._descricao_cidade, this._uf_id);
+
+
+  Cidade(this._descricao_cidade, this._uf_id, this._uf);
 
   Cidade.fromJson(Map<String, dynamic> json):
 
@@ -29,8 +34,9 @@ class Cidade {
   String get descricao_cidade => _descricao_cidade;
   int get uf_id => _uf_id;
   int get id => _id;
+  Uf get uf => _uf;
 
-  Map<String, dynamic> toMap() {
+Map<String, dynamic> toMap() {
 
     var mapa = new Map<String, dynamic>();
     mapa["descricao_cidade"] = _descricao_cidade;
@@ -41,10 +47,16 @@ class Cidade {
     return mapa;
   }
 
+  /*for(int i = 0; i < cidades.length; i++){
+      Cidade c = Cidade.fromMap(cidades[i]);
+      listaTemporaria.add(c);
+    }*/
+
   Cidade.fromMap(Map<String, dynamic> mapa){
 
     this._descricao_cidade = mapa['descricao_cidade'];
     this._uf_id = mapa['uf_id'];
     this._id = mapa['id'];
+    this._uf = Uf.fromMap(mapa);
   }
 }

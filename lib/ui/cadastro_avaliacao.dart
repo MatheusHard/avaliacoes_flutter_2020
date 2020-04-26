@@ -57,7 +57,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           value: cidade,
           child: Center(
-            child: Text(cidade.descricao_cidade.toUpperCase(),
+            child: Text(cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase(),
                         style: TextStyle(
                          fontWeight: FontWeight.w800,
                          color: Colors.teal,
@@ -1226,7 +1226,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   getCidades() async{
 
     DBAvaliacoes db = new DBAvaliacoes();
-    List cidades = await db.getCitys();
+//    List cidades = await db.getCitys();
+    List cidades = await db.getCidadesUfs();
     List<Cidade> listaTemporaria = List<Cidade>();
     for(int i = 0; i < cidades.length; i++){
       Cidade c = Cidade.fromMap(cidades[i]);

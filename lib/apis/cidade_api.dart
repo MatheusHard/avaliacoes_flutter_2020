@@ -29,7 +29,7 @@ class CidadeApi{
 
   for (int i = 0; i < _dados.length; i++) {
     //Inserir no DB interno dados da API:
-    await db.inserirCidade(new Cidade(_dados[i]["descricao_cidade"], _dados[i]["uf_id"]));
+    await db.inserirCidade(new Cidade(_dados[i]["descricao_cidade"], _dados[i]["uf_id"], null));
   }
 
   //return json.decode(response.body);

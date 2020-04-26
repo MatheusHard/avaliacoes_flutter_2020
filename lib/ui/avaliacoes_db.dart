@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/models/Uf.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -83,6 +84,18 @@ class DBAvaliacoes {
     return res.toList();
   }
 
+  Future<List> getCidadesUfs() async {
+// INNER JOIN $tabelaUf WHERE uf.id = cidade.cod_uf
+    var dbCidadeUf = await db;
+    var res = await dbCidadeUf.rawQuery("SELECT $tabelaCidade.$colunaId, $tabelaCidade.$colunaDescricao_cidade,"
+                                      " $tabelaCidade.$colunaUf_id, $tabelaUf.$colunaDescricao_Uf  FROM $tabelaCidade "
+                                      "INNER JOIN $tabelaUf WHERE $tabelaUf.$colunaIdUf = $tabelaCidade.$colunaUf_id");
+    print(res.toList());
+    return res.toList();
+  }
+/* "SELECT c.id_cidade, c.descricao_cidade, uf.id_uf, uf.descricao_uf "+
+                 "FROM " +UfDataModel.getTABELA()+ " uf INNER JOIN " +CidadeDataModel.getTABELA()+ " c "+
+                                "WHERE uf.id_uf = c.cod_uf ORDER BY c.id_cidade != 1, c.descricao_cidade;";*/
   getCitys () async {
 
     var dbCidade = await db;
@@ -110,6 +123,7 @@ Future<Cidade> getCidade(int id) async{
   if(res.length == 0) return null;
   return new Cidade.fromMap(res.first);
 }
+
 
 //Deletar:
   Future<int> apagarCidade (int id) async {
