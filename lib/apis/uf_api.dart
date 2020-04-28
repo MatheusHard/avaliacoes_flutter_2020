@@ -8,10 +8,9 @@ import 'dart:convert';
 
 class UfApi{
 
+ String _URL_API_UFS = "api/ufs/index_api";
 
-    String _URL_API_UFS = "api/ufs/index_api";
-
-  Future<int> getJson(BuildContext context) async{
+ Future<int> getJson(BuildContext context) async{
 
     String _url = Utils().URL_WEB_SERVICE + _URL_API_UFS;
     http.Response response = await http.post(_url);

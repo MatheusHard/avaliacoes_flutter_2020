@@ -47,7 +47,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   /************DropDown Cidades************/
 
   List<DropdownMenuItem<Cidade>> _dropdownMenuItemsCidades;
-  Cidade _selectedCidade;
+  Cidade _selectedCidade = null;
   
   List<DropdownMenuItem<Cidade>> buildDropdownMenuItemsCidades (List cidades){
     List<DropdownMenuItem<Cidade>> items = List();
@@ -55,14 +55,23 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     items.add(
         DropdownMenuItem(
 
-          value: cidade,
+
+      value: cidade,
           child: Center(
-            child: Text(cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase(),
+
+
+        child: _validarTextoDropdownCidade(cidade.id, cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase()),
+
+            /* Text(
+
+          cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase(),
                         style: TextStyle(
                          fontWeight: FontWeight.w800,
                          color: Colors.teal,
                         fontSize: 15.0
-              ),),
+              ),),*/
+
+
           ),
         )
       );
@@ -79,7 +88,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   /************DropDown Profissionais************/
 
   List<DropdownMenuItem<Profissional>> _dropdownMenuItemsProfissionais;
-  Profissional _selectedProfissional;
+  Profissional _selectedProfissional = null;
 
   List<DropdownMenuItem<Profissional>> buildDropdownMenuItemsProfissionais (List profissionais){
     List<DropdownMenuItem<Profissional>> items = List();
@@ -171,6 +180,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     hint: Text("Selecione a Cidade"),
                     isExpanded: true,
                     value: _selectedCidade,
+
                     items: _dropdownMenuItemsCidades,
                     onChanged: onChangedDropdownItemCidade),
               )),
@@ -1021,8 +1031,13 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
                 ),
                 onPressed: (){
+                  //TODO
+                  //Essa Validação pode não funcionar quando dropdown está vazio:
+                  if(_listaCidades.isNotEmpty){
                   if(_formKey.currentState.validate()){
                   _cadastarAvaliacao();
+                  }}else{
+                    Utils().showDefaultSnackbar(context, "Realize o sincronismo para receber aas Cidades!!!");
                   }
                 }
               ),
@@ -1036,144 +1051,143 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   }
 
   void _cadastarAvaliacao (){
+
+  Avaliacao a;
+  setState(() {
+
+      a = new Avaliacao();
     //TODO
-    int posicao = 1;
-    int tipo_profissional = 1;
-
-    Avaliacao a;
-    setState(() {
-     a = new Avaliacao();
-     //TODO
 
 
-     _nomeAgente = _nomeController.text;
-     _sugestoes = _sugestaoController.text;
-     _cpf = _cpfController.text;
+    _nomeAgente = _nomeController.text;
+    _sugestoes = _sugestaoController.text;
+    _cpf = _cpfController.text;
 
 
-     //Validação 01:
-     if(_selectedCidade != null  && _selectedCidade.id > 1) {
-       //Validação 02:
+    //Validação 01:
+    if (_selectedCidade != null && _selectedCidade.id > 1) {
+      //Validação 02:
       // if (!(_nomeAgente == "") && !(_nomeAgente == null)) {
-         //Validação 03:
-         if (_selectedProfissional != null && _selectedProfissional.id > 1) {
-           //Validação 04:
-          // if (!(_cpf == "") && !(_cpf == null)) {
-             //Validação 05:
-             if (_r1 > 0 && _r2 > 0 && _r3 > 0 && _r4 > 0 && _r5 > 0 && _r6 > 0 && _r7 > 0 && _r8 > 0 && _r9 > 0 && _r10 > 0){
+      //Validação 03:
+      if (_selectedProfissional != null && _selectedProfissional.id > 1) {
+        //Validação 04:
+        // if (!(_cpf == "") && !(_cpf == null)) {
+        //Validação 05:
+        if (_r1 > 0 && _r2 > 0 && _r3 > 0 && _r4 > 0 && _r5 > 0 && _r6 > 0 &&
+            _r7 > 0 && _r8 > 0 && _r9 > 0 && _r10 > 0) {
 
-               /*********Radio 01*********/
+          /*********Radio 01*********/
 
-               switch (_r1) {
-                 case 1:
-                   a.radioSim_1 = 1;
-                   a.radioNao_1 = 0;
-                   break;
-                 case 2:
-                   a.radioSim_1 = 0;
-                   a.radioNao_1 = 1;
-                   break;
-               }
+          switch (_r1) {
+            case 1:
+              a.radioSim_1 = 1;
+              a.radioNao_1 = 0;
+              break;
+            case 2:
+              a.radioSim_1 = 0;
+              a.radioNao_1 = 1;
+              break;
+          }
 
-               /*********Radio 02*********/
+          /*********Radio 02*********/
 
-               switch (_r2) {
-                 case 1:
-                   a.radioMuito_2 = 1;
-                   a.radiobom_2 = 0;
-                   a.radioRegular_2 = 0;
-                   a.radioRuim_2 = 0;
-                   break;
-                 case 2:
-                   a.radioMuito_2 = 0;
-                   a.radiobom_2 = 1;
-                   a.radioRegular_2 = 0;
-                   a.radioRuim_2 = 0;
-                   break;
-                 case 3:
-                   a.radioMuito_2 = 0;
-                   a.radiobom_2 = 0;
-                   a.radioRegular_2 = 1;
-                   a.radioRuim_2 = 0;
-                   break;
-                 case 4:
-                   a.radioMuito_2 = 0;
-                   a.radiobom_2 = 0;
-                   a.radioRegular_2 = 0;
-                   a.radioRuim_2 = 1;
-                   break;
-               }
+          switch (_r2) {
+            case 1:
+              a.radioMuito_2 = 1;
+              a.radiobom_2 = 0;
+              a.radioRegular_2 = 0;
+              a.radioRuim_2 = 0;
+              break;
+            case 2:
+              a.radioMuito_2 = 0;
+              a.radiobom_2 = 1;
+              a.radioRegular_2 = 0;
+              a.radioRuim_2 = 0;
+              break;
+            case 3:
+              a.radioMuito_2 = 0;
+              a.radiobom_2 = 0;
+              a.radioRegular_2 = 1;
+              a.radioRuim_2 = 0;
+              break;
+            case 4:
+              a.radioMuito_2 = 0;
+              a.radiobom_2 = 0;
+              a.radioRegular_2 = 0;
+              a.radioRuim_2 = 1;
+              break;
+          }
 
-               /*********Radio 03*********/
+          /*********Radio 03*********/
 
-               switch (_r3) {
-                 case 1:
-                   a.radioSeguro_3 = 1;
-                   a.radioPoucoSeguro_3 = 0;
-                   a.radioInseguro_3 = 0;
-                   break;
-                 case 2:
-                   a.radioSeguro_3 = 0;
-                   a.radioPoucoSeguro_3 = 1;
-                   a.radioInseguro_3 = 0;
-                   break;
-                 case 3:
-                   a.radioSeguro_3 = 0;
-                   a.radioPoucoSeguro_3 = 0;
-                   a.radioInseguro_3 = 1;
-                   break;
-               }
+          switch (_r3) {
+            case 1:
+              a.radioSeguro_3 = 1;
+              a.radioPoucoSeguro_3 = 0;
+              a.radioInseguro_3 = 0;
+              break;
+            case 2:
+              a.radioSeguro_3 = 0;
+              a.radioPoucoSeguro_3 = 1;
+              a.radioInseguro_3 = 0;
+              break;
+            case 3:
+              a.radioSeguro_3 = 0;
+              a.radioPoucoSeguro_3 = 0;
+              a.radioInseguro_3 = 1;
+              break;
+          }
 
-               /*********Radio 04*********/
+          /*********Radio 04*********/
 
-               switch (_r4) {
-                 case 1:
-                   a.radioExcessiva_4 = 1;
-                   a.radioRazoavel_4 = 0;
-                   a.RadioInsuficiente_4 = 0;
-                   break;
-                 case 2:
-                   a.radioExcessiva_4 = 0;
-                   a.radioRazoavel_4 = 1;
-                   a.RadioInsuficiente_4 = 0;
-                   break;
-                 case 3:
-                   a.radioExcessiva_4 = 0;
-                   a.radioRazoavel_4 = 0;
-                   a.RadioInsuficiente_4 = 1;
-                   break;
-               }
-               //Fim validação 01:
-              }else{
-              Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
-             }
-           //Fim validação 02:
-         }else {
-           Utils().showDefaultSnackbar(context, "Digite a Profissão!!!");
-         }
-       //Fim validação 03:
-     }else {
-       Utils().showDefaultSnackbar(context, "Selecione a Cidade!!!");
+          switch (_r4) {
+            case 1:
+              a.radioExcessiva_4 = 1;
+              a.radioRazoavel_4 = 0;
+              a.RadioInsuficiente_4 = 0;
+              break;
+            case 2:
+              a.radioExcessiva_4 = 0;
+              a.radioRazoavel_4 = 1;
+              a.RadioInsuficiente_4 = 0;
+              break;
+            case 3:
+              a.radioExcessiva_4 = 0;
+              a.radioRazoavel_4 = 0;
+              a.RadioInsuficiente_4 = 1;
+              break;
+          }
+          //Fim validação 01:
+        } else {
+          Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
+        }
+        //Fim validação 02:
+      } else {
+        Utils().showDefaultSnackbar(context, "Digite a Profissão!!!");
+      }
+      //Fim validação 03:
+    } else {
+      Utils().showDefaultSnackbar(context, "Selecione a Cidade!!!");
     }
+  }
+  );
 
-    }
-      );
+  print("Resultado: " + _r1.toString()
 
-    print("Resultado: " + _r1.toString()
-
-        + " -- Cidade: "  +_selectedCidade.descricao_cidade
-        + " -- Muito: "  +a.radioSeguro_3.toString()
-        + " -- BOm: "  +  a.radioPoucoSeguro_3.toString()
-        + " -- Regular: "  + a.radioInseguro_3.toString()
-        + " -- Ruim: "  + a.radioInseguro_3.toString()
-        + " -- Nome: "  + a.nomeAgente.toString()
-        + " -- Sugestão: "  + a.sugestoes.toString()
-        + " -- Cpf: "  + _cpf
-        + " -- Prof: "  + _selectedProfissional.id.toString()
-
+      + " -- Cidade: " + _selectedCidade.descricao_cidade
+      + " -- Muito: " + a.radioSeguro_3.toString()
+      + " -- BOm: " + a.radioPoucoSeguro_3.toString()
+      + " -- Regular: " + a.radioInseguro_3.toString()
+      + " -- Ruim: " + a.radioInseguro_3.toString()
+      + " -- Nome: " + a.nomeAgente.toString()
+      + " -- Sugestão: " + a.sugestoes.toString()
+      + " -- Cpf: " + _cpf
+      + " -- Prof: " + _selectedProfissional.id.toString()
 
 
-    );
+  );
+
+
 
   }
 
@@ -1262,6 +1276,28 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
      print("Profissionais: "+_listaProfissionais.toString());
 
    }
+Text _validarTextoDropdownCidade(int id, String texto){
+
+if(id == 1) {
+  texto = "ESCOLHA UMA OPÇÃO".toUpperCase();
+  return Text(
+    texto,
+    style: TextStyle(
+        fontWeight: FontWeight.w800,
+        color: Colors.teal,
+        fontSize: 15.0
+    ),);
+
+}else{
+  return Text(
+    texto,
+    style: TextStyle(
+        fontWeight: FontWeight.w800,
+        color: Colors.teal,
+        fontSize: 15.0
+    ),);
+}
+}
 
 }
 

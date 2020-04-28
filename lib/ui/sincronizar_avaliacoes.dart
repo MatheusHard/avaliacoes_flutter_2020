@@ -93,9 +93,7 @@ class _SincronismoState extends State<Sincronismo> {
   }
 
   _sincronizar (BuildContext context) async{
-    DBAvaliacoes db = new DBAvaliacoes();
 
-    db.getCidadesUfs();
     int valorCidade;
     int valorUf;
 

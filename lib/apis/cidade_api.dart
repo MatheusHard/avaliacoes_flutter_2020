@@ -8,16 +8,13 @@ import 'dart:convert';
 
 class CidadeApi{
 
-  String _URL_API_CIDADES = "api/cidades/index_api";
-  String _textoOK = "Cidades sincronizadas....";
-  String _textoERRO = "Não foi possivel sincronizar Cidades : ERRO(";
-  String _complemento = ")";
-
+  String _URL_API_CIDADES_GET = "api/cidades/index_api";
+  String _URL_API_CIDADES_POST = "api/cidades/store_api";
 
   Future<int> getJson(BuildContext context) async{
 
 
-      String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES;
+      String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_GET;
       http.Response response = await http.post(url);
 
     if(response.statusCode == 200) {
@@ -39,6 +36,24 @@ class CidadeApi{
       return response.statusCode;
 
     }
+  }
+  /************ENVIAR***************/
+
+  insertJson(Map cidade) async{
+    String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_POST;
+
+    http.Response response = await http.post(
+      url,
+      headers: {
+       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+      },
+
+      body: cidade
+
+    );
+    print("Status: "+response.statusCode.toString());
+    print("Body: "+response.body.toString());
+
   }
 }
 

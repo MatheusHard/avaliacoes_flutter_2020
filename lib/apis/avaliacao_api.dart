@@ -1,13 +1,24 @@
+import 'package:avaliacao_json_novo/utils/utils.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class AvaliacaoApi{
 
-int _id;
+  String _URL_API_AVALIACOES_POST = "api/cidades/store_api";
 
-int get id => _id;
+  insertJson(Map avaliacao) async{
 
-  set id(int value) {
-    _id = value;
+    String url = Utils().URL_WEB_SERVICE + _URL_API_AVALIACOES_POST;
+    http.Response response = await http.post(
+        url,
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+
+        body: avaliacao
+
+    );
+    print("Status: "+response.statusCode.toString());
+    print("Body: "+response.body.toString());
+
   }
 }

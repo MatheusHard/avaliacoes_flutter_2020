@@ -14,14 +14,14 @@ class Cidade {
   Cidade(this._descricao_cidade, this._uf_id, this._uf);
 
   Cidade.fromJson(Map<String, dynamic> json):
-
-      this._descricao_cidade = json['_descricao_cidade'],
-      this._uf_id = json['_uf_id'];
+      this._id = int.tryParse(json['id']) ?? 0,
+      this._descricao_cidade = json['descricao_cidade'],
+      this._uf_id = json['uf_id'];
 
   Map<String, dynamic> toJson() =>
       {
         'descricao_cidade': this._descricao_cidade,
-        'uf_id': this._uf_id,
+        'uf_id': this._uf_id.toString(),
       };
 
   Cidade.map(dynamic obj){

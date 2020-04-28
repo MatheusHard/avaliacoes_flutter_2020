@@ -88,14 +88,12 @@ class DBAvaliacoes {
 // INNER JOIN $tabelaUf WHERE uf.id = cidade.cod_uf
     var dbCidadeUf = await db;
     var res = await dbCidadeUf.rawQuery("SELECT $tabelaCidade.$colunaId, $tabelaCidade.$colunaDescricao_cidade,"
-                                      " $tabelaCidade.$colunaUf_id, $tabelaUf.$colunaDescricao_Uf  FROM $tabelaCidade "
-                                      "INNER JOIN $tabelaUf WHERE $tabelaUf.$colunaIdUf = $tabelaCidade.$colunaUf_id");
-    print(res.toList());
+                                      " $tabelaCidade.$colunaUf_id, $tabelaUf.$colunaDescricao_Uf  FROM $tabelaCidade"
+                                      " INNER JOIN $tabelaUf WHERE $tabelaUf.$colunaIdUf = $tabelaCidade.$colunaUf_id"
+                                      " ORDER BY $tabelaCidade.$colunaId != 1, $tabelaCidade.$colunaDescricao_cidade");
     return res.toList();
   }
-/* "SELECT c.id_cidade, c.descricao_cidade, uf.id_uf, uf.descricao_uf "+
-                 "FROM " +UfDataModel.getTABELA()+ " uf INNER JOIN " +CidadeDataModel.getTABELA()+ " c "+
-                                "WHERE uf.id_uf = c.cod_uf ORDER BY c.id_cidade != 1, c.descricao_cidade;";*/
+
   getCitys () async {
 
     var dbCidade = await db;

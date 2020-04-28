@@ -1,4 +1,5 @@
 
+import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
@@ -12,6 +13,10 @@ import 'models/Avaliacao.dart';
 
 
 void main() async {
+//TEste API Cidade Post:
+  //CidadeApi().insertJson(new Cidade("atalia", 15, null).toJson());
+
+  //print(cidade.toJson());
 
   //DBAvaliacoes db = new DBAvaliacoes();
  // var a = new Avaliacao();
@@ -23,7 +28,7 @@ void main() async {
   //print("Data: " + a.dataHora.toString());
 
   //Lembrar de colocar esta função abaixo dentro no main, não sei porque, so funciona, kkkkk:
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
 
   //Contagem:
   // int cont = await db.contCidades();
