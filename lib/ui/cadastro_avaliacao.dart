@@ -1360,8 +1360,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                                       _radioMuito_10,_radiobom_10,_radioRegular_10,_radioRuim_10,
                                       _sugestoes, _tipoAgente, _nomeTipoAgente, _nomeAgente, _cpf);
 
-
-          AvaliacaoApi().insertJson(avaliacao.toJson());
+          //Send Avaliação Json to Server Laravel:
+          AvaliacaoApi().insertJson(avaliacao.toJson(), context);
 
           //Fim validação 01:
         } else {

@@ -47,9 +47,7 @@ class CidadeApi{
       headers: {
        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
       },
-
       body: cidade
-
     );
     print("Status: "+response.statusCode.toString());
     print("Body: "+response.body.toString());

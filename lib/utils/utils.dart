@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Utils {
 
 
-   String URL_WEB_SERVICE = "http://192.168.1.6:8000/";
+   String URL_WEB_SERVICE = "http://192.168.1.7:8000/";
 
    int CONNECTION_TIMEOUT = 10000;
    int READ_TIMEOUT = 15000;
