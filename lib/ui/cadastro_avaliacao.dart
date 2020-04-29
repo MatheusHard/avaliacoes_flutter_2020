@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:core';
 
+import 'package:avaliacao_json_novo/apis/avaliacao_api.dart';
 import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/models/Profissional.dart';
@@ -17,9 +19,25 @@ class Cadastro_Avaliacao extends StatefulWidget {
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
+  int _radioSim_1, _radioNao_1;
+  int _radioMuito_2, _radiobom_2, _radioRegular_2, _radioRuim_2;
+  int _radioSeguro_3, _radioPoucoSeguro_3, _radioInseguro_3;
+  int _radioExcessiva_4, _radioRazoavel_4, _radioInsuficiente_4;
+  int _radioMuito_5, _radiobom_5, _radioRegular_5, _radioRuim_5;
+  int _radioMuito_6, _radiobom_6, _radioRegular_6, _radioRuim_6;
+  int _radioMuito_7, _radiobom_7, _radioRegular_7, _radioRuim_7;
+  int _radioMuito_8, _radiobom_8, _radioRegular_8, _radioRuim_8;
+  int _radioMuito_9, _radiobom_9, _radioRegular_9, _radioRuim_9;
+  int _radioMuito_10, _radiobom_10, _radioRegular_10, _radioRuim_10;
+
   String _nomeAgente;
   String _cpf;
   String _sugestoes;
+  int _tipoAgente;
+  String _nomeTipoAgente;
+  //TODO
+  String _dataHora;
+  int _idCidade;
 
   List<Cidade> _listaCidades = List<Cidade>();
   List<Profissional> _listaProfissionais = List<Profissional>();
@@ -1052,16 +1070,15 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
   void _cadastarAvaliacao (){
 
-  Avaliacao a;
   setState(() {
-
-      a = new Avaliacao();
     //TODO
-
 
     _nomeAgente = _nomeController.text;
     _sugestoes = _sugestaoController.text;
     _cpf = _cpfController.text;
+    _tipoAgente = _selectedProfissional.id;
+    _nomeTipoAgente = _selectedProfissional.descricao_profisssao;
+    _idCidade = _selectedCidade.id;
 
 
     //Validação 01:
@@ -1080,12 +1097,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           switch (_r1) {
             case 1:
-              a.radioSim_1 = 1;
-              a.radioNao_1 = 0;
+              _radioSim_1 = 1;
+              _radioNao_1 = 0;
               break;
             case 2:
-              a.radioSim_1 = 0;
-              a.radioNao_1 = 1;
+              _radioSim_1 = 0;
+              _radioNao_1 = 1;
               break;
           }
 
@@ -1093,28 +1110,28 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           switch (_r2) {
             case 1:
-              a.radioMuito_2 = 1;
-              a.radiobom_2 = 0;
-              a.radioRegular_2 = 0;
-              a.radioRuim_2 = 0;
+              _radioMuito_2 = 1;
+              _radiobom_2 = 0;
+              _radioRegular_2 = 0;
+              _radioRuim_2 = 0;
               break;
             case 2:
-              a.radioMuito_2 = 0;
-              a.radiobom_2 = 1;
-              a.radioRegular_2 = 0;
-              a.radioRuim_2 = 0;
+              _radioMuito_2 = 0;
+              _radiobom_2 = 1;
+              _radioRegular_2 = 0;
+              _radioRuim_2 = 0;
               break;
             case 3:
-              a.radioMuito_2 = 0;
-              a.radiobom_2 = 0;
-              a.radioRegular_2 = 1;
-              a.radioRuim_2 = 0;
+              _radioMuito_2 = 0;
+              _radiobom_2 = 0;
+              _radioRegular_2 = 1;
+              _radioRuim_2 = 0;
               break;
             case 4:
-              a.radioMuito_2 = 0;
-              a.radiobom_2 = 0;
-              a.radioRegular_2 = 0;
-              a.radioRuim_2 = 1;
+              _radioMuito_2 = 0;
+              _radiobom_2 = 0;
+              _radioRegular_2 = 0;
+              _radioRuim_2 = 1;
               break;
           }
 
@@ -1122,19 +1139,19 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           switch (_r3) {
             case 1:
-              a.radioSeguro_3 = 1;
-              a.radioPoucoSeguro_3 = 0;
-              a.radioInseguro_3 = 0;
+              _radioSeguro_3 = 1;
+              _radioPoucoSeguro_3 = 0;
+              _radioInseguro_3 = 0;
               break;
             case 2:
-              a.radioSeguro_3 = 0;
-              a.radioPoucoSeguro_3 = 1;
-              a.radioInseguro_3 = 0;
+              _radioSeguro_3 = 0;
+              _radioPoucoSeguro_3 = 1;
+              _radioInseguro_3 = 0;
               break;
             case 3:
-              a.radioSeguro_3 = 0;
-              a.radioPoucoSeguro_3 = 0;
-              a.radioInseguro_3 = 1;
+              _radioSeguro_3 = 0;
+              _radioPoucoSeguro_3 = 0;
+              _radioInseguro_3 = 1;
               break;
           }
 
@@ -1142,21 +1159,209 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           switch (_r4) {
             case 1:
-              a.radioExcessiva_4 = 1;
-              a.radioRazoavel_4 = 0;
-              a.RadioInsuficiente_4 = 0;
+              _radioExcessiva_4 = 1;
+              _radioRazoavel_4 = 0;
+              _radioInsuficiente_4 = 0;
               break;
             case 2:
-              a.radioExcessiva_4 = 0;
-              a.radioRazoavel_4 = 1;
-              a.RadioInsuficiente_4 = 0;
+              _radioExcessiva_4 = 0;
+              _radioRazoavel_4 = 1;
+              _radioInsuficiente_4 = 0;
               break;
             case 3:
-              a.radioExcessiva_4 = 0;
-              a.radioRazoavel_4 = 0;
-              a.RadioInsuficiente_4 = 1;
+              _radioExcessiva_4 = 0;
+              _radioRazoavel_4 = 0;
+              _radioInsuficiente_4 = 1;
               break;
           }
+
+          /*********Radio 05*********/
+
+          switch (_r5) {
+            case 1:
+              _radioMuito_5 = 1;
+              _radiobom_5 = 0;
+              _radioRegular_5 = 0;
+              _radioRuim_5 = 0;
+              break;
+            case 2:
+              _radioMuito_2 = 0;
+              _radiobom_2 = 1;
+              _radioRegular_2 = 0;
+              _radioRuim_2 = 0;
+              break;
+            case 3:
+              _radioMuito_2 = 0;
+              _radiobom_2 = 0;
+              _radioRegular_2 = 1;
+              _radioRuim_2 = 0;
+              break;
+            case 4:
+              _radioMuito_2 = 0;
+              _radiobom_2 = 0;
+              _radioRegular_2 = 0;
+              _radioRuim_2 = 1;
+              break;
+          }
+          /*********Radio 06*********/
+
+          switch (_r6) {
+            case 1:
+              _radioMuito_6 = 1;
+              _radiobom_6 = 0;
+              _radioRegular_6 = 0;
+              _radioRuim_6 = 0;
+              break;
+            case 2:
+              _radioMuito_6 = 0;
+              _radiobom_6 = 1;
+              _radioRegular_6 = 0;
+              _radioRuim_6 = 0;
+              break;
+            case 3:
+              _radioMuito_6 = 0;
+              _radiobom_6 = 0;
+              _radioRegular_6 = 1;
+              _radioRuim_6 = 0;
+              break;
+            case 4:
+              _radioMuito_6 = 0;
+              _radiobom_6 = 0;
+              _radioRegular_6 = 0;
+              _radioRuim_6 = 1;
+              break;
+          }
+
+          /*********Radio 07*********/
+
+          switch (_r7) {
+            case 1:
+              _radioMuito_7 = 1;
+              _radiobom_7 = 0;
+              _radioRegular_7 = 0;
+              _radioRuim_7 = 0;
+              break;
+            case 2:
+              _radioMuito_7 = 0;
+              _radiobom_7 = 1;
+              _radioRegular_7 = 0;
+              _radioRuim_7 = 0;
+              break;
+            case 3:
+              _radioMuito_7 = 0;
+              _radiobom_7 = 0;
+              _radioRegular_7 = 1;
+              _radioRuim_7 = 0;
+              break;
+            case 4:
+              _radioMuito_7 = 0;
+              _radiobom_7 = 0;
+              _radioRegular_7 = 0;
+              _radioRuim_7 = 1;
+              break;
+          }
+
+          /*********Radio 08*********/
+
+          switch (_r8) {
+            case 1:
+              _radioMuito_8 = 1;
+              _radiobom_8 = 0;
+              _radioRegular_8 = 0;
+              _radioRuim_8 = 0;
+              break;
+            case 2:
+              _radioMuito_8 = 0;
+              _radiobom_8 = 1;
+              _radioRegular_8 = 0;
+              _radioRuim_8 = 0;
+              break;
+            case 3:
+              _radioMuito_8 = 0;
+              _radiobom_8 = 0;
+              _radioRegular_8 = 1;
+              _radioRuim_8 = 0;
+              break;
+            case 4:
+              _radioMuito_8 = 0;
+              _radiobom_8 = 0;
+              _radioRegular_8 = 0;
+              _radioRuim_8 = 1;
+              break;
+          }
+
+          /*********Radio 09*********/
+
+          switch (_r9) {
+            case 1:
+              _radioMuito_9 = 1;
+              _radiobom_9 = 0;
+              _radioRegular_9 = 0;
+              _radioRuim_9 = 0;
+              break;
+            case 2:
+              _radioMuito_9 = 0;
+              _radiobom_9 = 1;
+              _radioRegular_9 = 0;
+              _radioRuim_9 = 0;
+              break;
+            case 3:
+              _radioMuito_9 = 0;
+              _radiobom_9 = 0;
+              _radioRegular_9 = 1;
+              _radioRuim_9 = 0;
+              break;
+            case 4:
+              _radioMuito_9 = 0;
+              _radiobom_9 = 0;
+              _radioRegular_9 = 0;
+              _radioRuim_9 = 1;
+              break;
+          }
+
+          /*********Radio 10*********/
+
+          switch (_r10) {
+            case 1:
+              _radioMuito_10 = 1;
+              _radiobom_10 = 0;
+              _radioRegular_10 = 0;
+              _radioRuim_10 = 0;
+              break;
+            case 2:
+              _radioMuito_10 = 0;
+              _radiobom_10 = 1;
+              _radioRegular_10 = 0;
+              _radioRuim_10 = 0;
+              break;
+            case 3:
+              _radioMuito_10 = 0;
+              _radiobom_10 = 0;
+              _radioRegular_10 = 1;
+              _radioRuim_10 = 0;
+              break;
+            case 4:
+              _radioMuito_10 = 0;
+              _radiobom_10 = 0;
+              _radioRegular_10 = 0;
+              _radioRuim_10 = 1;
+              break;
+          }
+  Avaliacao avaliacao = new Avaliacao(null, null, _idCidade, _radioSim_1, _radioNao_1,
+                                      _radioMuito_2, _radiobom_2, _radioRegular_2, _radioRuim_2,
+                                      _radioSeguro_3, _radioPoucoSeguro_3, _radioInseguro_3,
+                                      _radioExcessiva_4, _radioRazoavel_4, _radioInsuficiente_4,
+                                      _radioMuito_5, _radiobom_5, _radioRegular_5, _radioRuim_5,
+                                      _radioMuito_6, _radiobom_6, _radioRegular_6, _radioRuim_6,
+                                      _radioMuito_7, _radiobom_7, _radioRegular_7, _radioRuim_7,
+                                      _radioMuito_8, _radiobom_8, _radioRegular_8, _radioRuim_8,
+                                      _radioMuito_9, _radiobom_9, _radioRegular_9, _radioRuim_9,
+                                      _radioMuito_10,_radiobom_10,_radioRegular_10,_radioRuim_10,
+                                      _sugestoes, _tipoAgente, _nomeTipoAgente, _nomeAgente, _cpf);
+
+
+          AvaliacaoApi().insertJson(avaliacao.toJson());
+
           //Fim validação 01:
         } else {
           Utils().showDefaultSnackbar(context, "Selecione todos os campos!!!");
@@ -1172,7 +1377,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   }
   );
 
-  print("Resultado: " + _r1.toString()
+  /*print("Resultado: " + _r1.toString()
 
       + " -- Cidade: " + _selectedCidade.descricao_cidade
       + " -- Muito: " + a.radioSeguro_3.toString()
@@ -1185,13 +1390,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
       + " -- Prof: " + _selectedProfissional.id.toString()
 
 
-  );
-
-
-
+  );*/
   }
-
-
 
   Padding _textoTitulo(String valor){
 
