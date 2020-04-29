@@ -36,7 +36,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   int _tipoAgente;
   String _nomeTipoAgente;
   //TODO
-  String _dataHora;
+  DateTime _dataHora;
   int _idCidade;
 
   List<Cidade> _listaCidades = List<Cidade>();
@@ -1079,6 +1079,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     _tipoAgente = _selectedProfissional.id;
     _nomeTipoAgente = _selectedProfissional.descricao_profisssao;
     _idCidade = _selectedCidade.id;
+    _dataHora = DateTime.now();
 
 
     //Validação 01:
@@ -1185,22 +1186,22 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               _radioRuim_5 = 0;
               break;
             case 2:
-              _radioMuito_2 = 0;
-              _radiobom_2 = 1;
-              _radioRegular_2 = 0;
-              _radioRuim_2 = 0;
+              _radioMuito_5 = 0;
+              _radiobom_5 = 1;
+              _radioRegular_5 = 0;
+              _radioRuim_5 = 0;
               break;
             case 3:
-              _radioMuito_2 = 0;
-              _radiobom_2 = 0;
-              _radioRegular_2 = 1;
-              _radioRuim_2 = 0;
+              _radioMuito_5 = 0;
+              _radiobom_5 = 0;
+              _radioRegular_5 = 1;
+              _radioRuim_5 = 0;
               break;
             case 4:
-              _radioMuito_2 = 0;
-              _radiobom_2 = 0;
-              _radioRegular_2 = 0;
-              _radioRuim_2 = 1;
+              _radioMuito_5 = 0;
+              _radiobom_5 = 0;
+              _radioRegular_5 = 0;
+              _radioRuim_5 = 1;
               break;
           }
           /*********Radio 06*********/
@@ -1347,7 +1348,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               _radioRuim_10 = 1;
               break;
           }
-  Avaliacao avaliacao = new Avaliacao(null, null, _idCidade, _radioSim_1, _radioNao_1,
+  Avaliacao avaliacao = new Avaliacao( _dataHora, _idCidade, _radioSim_1, _radioNao_1,
                                       _radioMuito_2, _radiobom_2, _radioRegular_2, _radioRuim_2,
                                       _radioSeguro_3, _radioPoucoSeguro_3, _radioInseguro_3,
                                       _radioExcessiva_4, _radioRazoavel_4, _radioInsuficiente_4,

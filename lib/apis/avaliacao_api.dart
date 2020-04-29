@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class AvaliacaoApi{
 
-  String _URL_API_AVALIACOES_POST = "api/cidades/store_api";
+  String _URL_API_AVALIACOES_POST = "/api/avaliacoes/store_api";
 
   insertJson(Map avaliacao) async{
 

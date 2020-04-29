@@ -14,7 +14,7 @@ import 'models/Avaliacao.dart';
 
 void main() async {
 //TEste API Cidade Post:
-  //CidadeApi().insertJson(new Cidade("atalia", 15, null).toJson());
+  CidadeApi().insertJson(new Cidade("Atalia", 15, null).toJson());
 
   //print(cidade.toJson());
 
