@@ -120,7 +120,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               child: Text(profissional.descricao_profisssao.toUpperCase(),
                 style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    color: Colors.teal,
+                    color: Colors.red,
                     fontSize: 15.0
                 ),),
             ),
@@ -160,53 +160,25 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
     return Scaffold(
 
       body:
-      
+
       SingleChildScrollView(
 
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+      child: Container(
+        margin: EdgeInsets.all(0.0),
+        color: Colors.white,
+        child: Padding(
 
-              _textoTitulo(Textos().titulo00_dados),
+          padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+          child: Container(
+            margin: EdgeInsets.all(0.0),
 
-              Padding(
-                padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
-                child:
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
 
-                InputDecorator(
+                _textoTitulo(Textos().titulo00_dados),
 
-                  decoration: InputDecoration(
-
-                    border: InputBorder.none,
-                    icon: Icon(Icons.location_city),
-                    labelText: Textos().titulo06_Cidade,
-                    labelStyle: TextStyle(
-                        color: Colors.black38,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold
-                    )
-                  ),
-                  child:
-                DropdownButton(
-
-                    style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
-                   // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
-
-                    hint: Text("Selecione a Cidade"),
-                    isExpanded: true,
-                    value: _selectedCidade,
-
-                    items: _dropdownMenuItemsCidades,
-                    onChanged: onChangedDropdownItemCidade),
-              )),
-              SizedBox(height: 10.0,),
-              //Text("Selecionou: ${_selectedCidade.descricao_cidade}"),
-
-              /**Drop Profissionais**/
-              Padding(
+                Padding(
                   padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
                   child:
 
@@ -214,863 +186,924 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
                     decoration: InputDecoration(
 
-                        border: InputBorder.none,
-                        icon: Icon(Icons.phonelink),
-                        labelText: Textos().titulo08_prof,
-                        labelStyle: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold
-                        )
+                      border: InputBorder.none,
+                      icon: Icon(Icons.location_city),
+                      labelText: Textos().titulo06_Cidade,
+                      labelStyle: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold
+                      )
                     ),
                     child:
-                    DropdownButton(
+                  DropdownButton(
 
-                        style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
-                        // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
+                      style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                     // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
 
-                        hint: Text("Selecione a Profissão"),
-                        isExpanded: true,
-                        value: _selectedProfissional,
-                        items: _dropdownMenuItemsProfissionais,
-                        onChanged: onChangedDropdownItemProfissional),
-                  )),
-              SizedBox(height: 10.0,),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
+                      hint: Text("Selecione a Cidade"),
+                      isExpanded: true,
+                      value: _selectedCidade,
 
-                  /**********Nome Profissional**********/
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                    child: TextFormField(
-                      controller: _nomeController,
-                      focusNode: _myFocusNode,
-                      keyboardType: TextInputType.text,
+                      items: _dropdownMenuItemsCidades,
+                      onChanged: onChangedDropdownItemCidade),
+                )),
+                SizedBox(height: 10.0,),
+                //Text("Selecionou: ${_selectedCidade.descricao_cidade}"),
+
+                /**Drop Profissionais**/
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
+                    child:
+
+                    InputDecorator(
+
                       decoration: InputDecoration(
-                          labelText: "Nome:",
-                          hintText: "digite o nome",
-                          icon: Icon(Icons.perm_identity)
+
+                          border: InputBorder.none,
+                          icon: Icon(Icons.phonelink),
+                          labelText: Textos().titulo08_prof,
+                          labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold
+                          )
                       ),
-                      validator: (value){
-                        if(value.isEmpty || value == ""){
-                          _myFocusNode.requestFocus();
-                          Utils().showDefaultSnackbar(context, "Insira seu nome!!!");
-                        }
-                        return Textos().validar_nome;
-                      },
-                    ),
-                  ),
+                      child:
+                      DropdownButton(
 
-                  /**********CPF**********/
+                          style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                          // icon: Icon(Icons.location_city, textDirection: TextDirection.ltr,),
 
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                    child: TextFormField(
-                      controller: _cpfController,
-                      focusNode: _myFocusNode_2,
-                      maxLength: 11,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: "Cpf:",
-                          hintText: "digite o cpf",
-                          icon: Icon(Icons.credit_card)
-                      ),
-                      validator: (value){
+                          hint: Text("Selecione a Profissão"),
+                          isExpanded: true,
+                          value: _selectedProfissional,
+                          items: _dropdownMenuItemsProfissionais,
+                          onChanged: onChangedDropdownItemProfissional),
+                    )),
+                SizedBox(height: 10.0,),
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
 
-                          if(value.isNotEmpty || value != ""){
-                            if(!Utils().validarCPF(value)){
-                              _myFocusNode_2.requestFocus();
-                              Utils().showDefaultSnackbar(context, "Cpf inválido!!!");
-                             // return Textos().validar_nome;
-                            }
-                          }else{
-                            _myFocusNode_2.requestFocus();
-                            Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+                    /**********Nome Profissional**********/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                      child: TextFormField(
+                        controller: _nomeController,
+                        focusNode: _myFocusNode,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            labelText: "Nome:",
+                            hintText: "digite o nome",
+                            icon: Icon(Icons.perm_identity)
+                        ),
+                        validator: (value){
+                          if(value.isEmpty || value == ""){
+                            _myFocusNode.requestFocus();
+                            Utils().showDefaultSnackbar(context, "Insira seu nome!!!");
                           }
-
                           return Textos().validar_nome;
-
-                      },
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              )),
 
-              _textoTitulo(Textos().titulo01),
-              _textoSubtitulo(Textos().sub01_aplicacao),
+                    /**********CPF**********/
 
-              /**********RADIO 01**********/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                      child: TextFormField(
+                        controller: _cpfController,
+                        focusNode: _myFocusNode_2,
+                        maxLength: 11,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            labelText: "Cpf:",
+                            hintText: "digite o cpf",
+                            icon: Icon(Icons.credit_card)
+                        ),
+                        validator: (value){
 
-              RadioListTile(
-                      title: _textoNormal(Textos().proporcionou_1) ,
-                      value: 1,
-                      activeColor: Colors.greenAccent,
-                      groupValue: _r1,
-                      onChanged: (int escolha){
-                        setState(() {
-                          _r1 = escolha;
-                        });
-                      }
-                  ),
-                  RadioListTile(
-                      title: _textoNormal(Textos().nao_proporcionou_1) ,
-                      value: 2,
-                      activeColor: Colors.redAccent,
-                      groupValue: _r1,
-                      onChanged: (int escolha){
-                        setState(() {
-                          _r1 = escolha;
-                        });
-                      }
-                  ),
+                            if(value.isNotEmpty || value != ""){
+                              if(!Utils().validarCPF(value)){
+                                _myFocusNode_2.requestFocus();
+                                Utils().showDefaultSnackbar(context, "Cpf inválido!!!");
+                               // return Textos().validar_nome;
+                              }
+                            }else{
+                              _myFocusNode_2.requestFocus();
+                              Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+                            }
 
-              /**********RADIO 02**********/
+                            return Textos().validar_nome;
 
-              _textoTitulo(Textos().titulo02),
-              _textoSubtitulo(Textos().sub02_clareza),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
+                        },
+                      ),
+                    ),
+                  ],
+                )),
+
+                _textoTitulo(Textos().titulo01),
+                _textoSubtitulo(Textos().sub01_aplicacao),
+
+                /**********RADIO 01**********/
+
+                RadioListTile(
+                        title: _textoNormal(Textos().proporcionou_1) ,
+                        value: 1,
+                        activeColor: Colors.greenAccent,
+                        groupValue: _r1,
+                        onChanged: (int escolha){
+                          setState(() {
+                            _r1 = escolha;
+                          });
+                        }
+                    ),
+                    RadioListTile(
+                        title: _textoNormal(Textos().nao_proporcionou_1) ,
+                        value: 2,
+                        activeColor: Colors.redAccent,
+                        groupValue: _r1,
+                        onChanged: (int escolha){
+                          setState(() {
+                            _r1 = escolha;
+                          });
+                        }
+                    ),
+
+                /**********RADIO 02**********/
+
+                _textoTitulo(Textos().titulo02),
+                _textoSubtitulo(Textos().sub02_clareza),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                            height: 20.0,
+                            width: 20.0,
+                            child: Radio(
+
+                                activeColor: Colors.greenAccent,
+                                value: 1,
+                                groupValue: _r2,
+                                onChanged: (int escolha){
+                                setState(() {
+                                  _r2 = escolha;
+                                });
+                              },
+                            ),
+                        ),
+                     ),
+
+                      _textoNormal(Textos().muito_bom),
+
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-
-                              activeColor: Colors.greenAccent,
-                              value: 1,
-                              groupValue: _r2,
-                              onChanged: (int escolha){
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r2,
+                            onChanged: (int escolha){
                               setState(() {
                                 _r2 = escolha;
                               });
                             },
                           ),
-                      ),
-                   ),
-
-                    _textoNormal(Textos().muito_bom),
-
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
-                          value: 2,
-                          groupValue: _r2,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r2 = escolha;
-                            });
-                          },
                         ),
                       ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          groupValue: _r2,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r2 = escolha;
-                            });
-                          },
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r2,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r2 = escolha;
+                              });
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r2,
-                          value: 4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r2 = escolha;
-                            });
-                          },
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r2,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r2 = escolha;
+                              });
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
                 ),
-              ),
 
-              /**********RADIO 03**********/
+                /**********RADIO 03**********/
 
-              _textoSubtitulo(Textos().sub01_aplicacao),
+                _textoSubtitulo(Textos().sub01_aplicacao),
 
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-
-                  RadioListTile(
-                        title: _textoNormal(Textos().seguro) ,
-                        value: 1,
-                        activeColor: Colors.greenAccent,
-                        groupValue: _r3,
-                        onChanged: (int escolha){
-                          setState(() {
-                            _r3 = escolha;
-                          });
-                        }
-                    ),
-                 RadioListTile(
-                        title: _textoNormal(Textos().pouco_seguro) ,
-                        value: 2,
-                        activeColor: Colors.yellowAccent,
-                        groupValue: _r3,
-                        onChanged: (int escolha){
-                          setState(() {
-                            _r3 = escolha;
-                          });
-                        }
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
 
                     RadioListTile(
-                        title: _textoNormal(Textos().inseguro) ,
-                        value: 3,
-                        activeColor: Colors.redAccent,
-                        groupValue: _r3,
-                        onChanged: (int escolha){
-                          setState(() {
-                            _r3 = escolha;
-                          });
-                        }
-                    ),
-
-                   ],
-                ),
-              ),
-
-              /**********RADIO 04**********/
-
-              _textoSubtitulo(Textos().sub03_carga),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.greenAccent,
+                          title: _textoNormal(Textos().seguro) ,
                           value: 1,
-                          groupValue: _r4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r4 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().excessiva),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          value: 2,
-                          groupValue: _r4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r4 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().razoavel),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r4,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r4 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().insuficiente),
-
-                  ],
-                ),
-              ),
-
-              /**********RADIO 05**********/
-
-              _textoTitulo(Textos().titulo03_instru),
-              _textoSubtitulo(Textos().sub04_conhecimento),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
                           activeColor: Colors.greenAccent,
-                          value: 1,
-                          groupValue: _r5,
+                          groupValue: _r3,
                           onChanged: (int escolha){
                             setState(() {
-                              _r5 = escolha;
+                              _r3 = escolha;
                             });
-                          },
-                        ),
+                          }
                       ),
-                    ),
-                    _textoNormal(Textos().muito_bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
+                   RadioListTile(
+                          title: _textoNormal(Textos().pouco_seguro) ,
                           value: 2,
-                          groupValue: _r5,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r5 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
                           activeColor: Colors.yellowAccent,
-                          groupValue: _r5,
+                          groupValue: _r3,
+                          onChanged: (int escolha){
+                            setState(() {
+                              _r3 = escolha;
+                            });
+                          }
+                      ),
+
+                      RadioListTile(
+                          title: _textoNormal(Textos().inseguro) ,
                           value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r5 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
                           activeColor: Colors.redAccent,
-                          groupValue: _r5,
-                          value: 4,
+                          groupValue: _r3,
                           onChanged: (int escolha){
                             setState(() {
-                              _r5 = escolha;
+                              _r3 = escolha;
                             });
-                          },
-                        ),
+                          }
                       ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
-                ),
-              ),
 
-              /**********RADIO 06**********/
-
-                    _textoSubtitulo(Textos().sub05_clareza_ex),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
-                              child: Radio(
-                                activeColor: Colors.greenAccent,
-                                value: 1,
-                                groupValue: _r6,
-                                onChanged: (int escolha){
-                                  setState(() {
-                                    _r6 = escolha;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          _textoNormal(Textos().muito_bom),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
-                              child: Radio(
-                                activeColor: Colors.blueAccent,
-                                value: 2,
-                                groupValue: _r6,
-                                onChanged: (int escolha){
-                                  setState(() {
-                                    _r6 = escolha;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          _textoNormal(Textos().bom),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
-                              child: Radio(
-                                activeColor: Colors.yellowAccent,
-                                groupValue: _r6,
-                                value: 3,
-                                onChanged: (int escolha){
-                                  setState(() {
-                                    _r6 = escolha;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          _textoNormal(Textos().regular),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
-                              child: Radio(
-                                activeColor: Colors.redAccent,
-                                groupValue: _r6,
-                                value: 4,
-                                onChanged: (int escolha){
-                                  setState(() {
-                                    _r6 = escolha;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          _textoNormal(Textos().ruim)
-
-                  ],
-                ),
-              ),
-
-              /**********RADIO 07**********/
-
-              _textoSubtitulo(Textos().sub06_disponibilidade),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.greenAccent,
-                          value: 1,
-                          groupValue: _r7,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r7 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().muito_bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
-                          value: 2,
-                          groupValue: _r7,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r7 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          groupValue: _r7,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r7 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r7,
-                          value: 4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r7 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
-                ),
-              ),
-
-              /**********RADIO 08**********/
-
-              _textoTitulo(Textos().titulo04_equi),
-              _textoSubtitulo(Textos().sub04_conhecimento),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.greenAccent,
-                          value: 1,
-                          groupValue: _r8,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r8 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().muito_bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
-                          value: 2,
-                          groupValue: _r8,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r8 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          groupValue: _r8,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r8 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r8,
-                          value: 4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r8 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
-                ),
-              ),
-
-              /**********RADIO 09**********/
-
-              _textoSubtitulo(Textos().sub05_clareza_ex),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.greenAccent,
-                          value: 1,
-                          groupValue: _r9,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r9 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().muito_bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
-                          value: 2,
-                          groupValue: _r9,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r9 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          groupValue: _r9,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r9 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r9,
-                          value: 4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r9 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
-                ),
-              ),
-
-              /**********RADIO 10**********/
-
-              _textoSubtitulo(Textos().sub06_disponibilidade),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.greenAccent,
-                          value: 1,
-                          groupValue: _r10,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r10 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().muito_bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.blueAccent,
-                          value: 2,
-                          groupValue: _r10,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r10 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().bom),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.yellowAccent,
-                          groupValue: _r10,
-                          value: 3,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r10 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().regular),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SizedBox(
-                        height: 20.0,
-                        width: 20.0,
-                        child: Radio(
-                          activeColor: Colors.redAccent,
-                          groupValue: _r10,
-                          value: 4,
-                          onChanged: (int escolha){
-                            setState(() {
-                              _r10 = escolha;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    _textoNormal(Textos().ruim)
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                child: TextField(
-                  controller: _sugestaoController,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      labelText: "Sugestões:",
-                      hintText: "digite sua sugestão",
-                      icon: Icon(Icons.chat)
+                     ],
                   ),
                 ),
-              ),
-              /***************************/
-              SizedBox(height: 10.0,),
-              RaisedButton(
-                child: Text("Aperte",
-                  style: TextStyle(
-                      fontSize: 20
+
+                /**********RADIO 04**********/
+
+                _textoSubtitulo(Textos().sub03_carga),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r4 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().excessiva),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            value: 2,
+                            groupValue: _r4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r4 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().razoavel),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r4,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r4 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().insuficiente),
+
+                    ],
                   ),
                 ),
-                onPressed: (){
-                  //TODO
-                  //Essa Validação pode não funcionar quando dropdown está vazio:
-                  if(_listaCidades.isNotEmpty){
-                  if(_formKey.currentState.validate()){
-                  _cadastarAvaliacao();
-                  }}else{
-                    Utils().showDefaultSnackbar(context, "Realize o sincronismo para receber aas Cidades!!!");
-                  }
-                }
-              ),
 
-            ],
+                /**********RADIO 05**********/
+
+                _textoTitulo(Textos().titulo03_instru),
+                _textoSubtitulo(Textos().sub04_conhecimento),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r5,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r5 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().muito_bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r5,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r5 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r5,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r5 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r5,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r5 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
+                ),
+
+                /**********RADIO 06**********/
+
+                      _textoSubtitulo(Textos().sub05_clareza_ex),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: Radio(
+                                  activeColor: Colors.greenAccent,
+                                  value: 1,
+                                  groupValue: _r6,
+                                  onChanged: (int escolha){
+                                    setState(() {
+                                      _r6 = escolha;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            _textoNormal(Textos().muito_bom),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: Radio(
+                                  activeColor: Colors.blueAccent,
+                                  value: 2,
+                                  groupValue: _r6,
+                                  onChanged: (int escolha){
+                                    setState(() {
+                                      _r6 = escolha;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            _textoNormal(Textos().bom),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: Radio(
+                                  activeColor: Colors.yellowAccent,
+                                  groupValue: _r6,
+                                  value: 3,
+                                  onChanged: (int escolha){
+                                    setState(() {
+                                      _r6 = escolha;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            _textoNormal(Textos().regular),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: Radio(
+                                  activeColor: Colors.redAccent,
+                                  groupValue: _r6,
+                                  value: 4,
+                                  onChanged: (int escolha){
+                                    setState(() {
+                                      _r6 = escolha;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            _textoNormal(Textos().ruim)
+
+                    ],
+                  ),
+                ),
+
+                /**********RADIO 07**********/
+
+                _textoSubtitulo(Textos().sub06_disponibilidade),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r7,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r7 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().muito_bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r7,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r7 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r7,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r7 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r7,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r7 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
+                ),
+
+                /**********RADIO 08**********/
+
+                _textoTitulo(Textos().titulo04_equi),
+                _textoSubtitulo(Textos().sub04_conhecimento),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r8,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r8 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().muito_bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r8,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r8 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r8,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r8 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r8,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r8 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
+                ),
+
+                /**********RADIO 09**********/
+
+                _textoSubtitulo(Textos().sub05_clareza_ex),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r9,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r9 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().muito_bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r9,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r9 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r9,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r9 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r9,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r9 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
+                ),
+
+                /**********RADIO 10**********/
+
+                _textoSubtitulo(Textos().sub06_disponibilidade),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.greenAccent,
+                            value: 1,
+                            groupValue: _r10,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r10 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().muito_bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.blueAccent,
+                            value: 2,
+                            groupValue: _r10,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r10 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().bom),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.yellowAccent,
+                            groupValue: _r10,
+                            value: 3,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r10 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().regular),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: Radio(
+                            activeColor: Colors.redAccent,
+                            groupValue: _r10,
+                            value: 4,
+                            onChanged: (int escolha){
+                              setState(() {
+                                _r10 = escolha;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      _textoNormal(Textos().ruim)
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                  child: TextField(
+                    controller: _sugestaoController,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                        labelText: "Sugestões:",
+                        hintText: "digite sua sugestão",
+                        icon: Icon(Icons.chat)
+                    ),
+                  ),
+                ),
+                /***************************/
+                SizedBox(height: 10.0,),
+                RaisedButton(
+
+                  onPressed: (){
+                      //TODO
+                      //Essa Validação pode não funcionar quando dropdown está vazio:
+                      if(_listaCidades.isNotEmpty){
+                        if(_formKey.currentState.validate()){
+                          _cadastarAvaliacao();
+                        }}else{
+                        Utils().showDefaultSnackbar(context, "Realize o sincronismo para receber aas Cidades!!!");
+                      }
+                    },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0),
+                  ),
+                  padding: EdgeInsets.all(0.0),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(colors:
+                        [ Color(0xFF0D47A1),
+                          Color(0xFF1976D2),
+                          Color(0xFF42A5F5),],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight
+                        ),
+                        borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    child: Container(
+                      constraints: BoxConstraints( maxWidth: 300.0,minHeight: 50.0),
+                      alignment: Alignment.center,
+                      child: Text("Cadastrar",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w600
+                        ),),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+
+
+              ],
+            ),
           ),
         ),
       ),
@@ -1407,12 +1440,31 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   Padding _textoTitulo(String valor){
 
     Padding texto = Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:  Text(valor,
-          style: TextStyle(
-              color: Colors.redAccent,
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold
+
+        padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+        child:
+
+
+        Container(
+          width: 500,
+          height: 40,
+          alignment: Alignment.center,
+          color: Colors.red,
+          child: Text(valor,
+
+                style: TextStyle(
+
+                color: Colors.white,
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  blurRadius: 05.0,
+                  color: Colors.white70,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ],
+            ),
           ),
         )
     );
@@ -1424,7 +1476,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         padding: const EdgeInsets.all(8.0),
         child:  Text(valor,
                     style: TextStyle(
-                    color: Colors.black45,
+                    color: Colors.black54,
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold
     ),
@@ -1439,8 +1491,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
         child:  Text(valor,
           style: TextStyle(
-              color: Colors.black38,
-              fontSize: 15.0,
+              color: Colors.black54,
+              fontSize: 16.0,
               fontWeight: FontWeight.bold
           ),
         )
@@ -1494,7 +1546,7 @@ if(id == 1) {
     texto,
     style: TextStyle(
         fontWeight: FontWeight.w800,
-        color: Colors.teal,
+        color: Colors.red,
         fontSize: 15.0
     ),);
 
@@ -1503,7 +1555,7 @@ if(id == 1) {
     texto,
     style: TextStyle(
         fontWeight: FontWeight.w800,
-        color: Colors.teal,
+        color: Colors.red,
         fontSize: 15.0
     ),);
     }

@@ -58,31 +58,37 @@ class _SincronismoState extends State<Sincronismo> {
           );
         },
       ),*/
-          RaisedButton(
+          Center(
+            child: RaisedButton(
 
-            onPressed:  () => _sincronizar(context),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(80.0),
-            ),
-            padding: EdgeInsets.all(0.0),
-            child: Ink(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [ Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight
-                  ),
-                  borderRadius: BorderRadius.circular(30.0)
+              onPressed:  () => _sincronizar(context),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(80.0),
               ),
-              child: Container(
-                constraints: BoxConstraints( maxWidth: 300.0,minHeight: 50.0),
-                alignment: Alignment.center,
-                child: Text("Sincronizar",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white
-                  ),),
+              padding: EdgeInsets.all(0.0),
+              child: Ink(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors:
+                    [ Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight
+                    ),
+                    borderRadius: BorderRadius.circular(30.0)
+                ),
+                child: Container(
+                  constraints: BoxConstraints( maxWidth: 300.0,minHeight: 50.0),
+                  alignment: Alignment.center,
+                  child: Text("Sincronizar",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600
+                    ),),
+                ),
               ),
             ),
           )

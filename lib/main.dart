@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final tabs = [
     Center(child: Text("Home")),
-    Center(child: Cadastro_Avaliacao()),
+    Cadastro_Avaliacao(),
     Sincronismo(),
     Center(child: Text("EXIT"))
   ];
@@ -86,11 +86,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
 
-        title: Text("Avaliações"),
+        title: Text("Avaliações",
+                      style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),),
 
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.red,
         centerTitle: true,
       ),
       body: tabs[_currentIndex],
@@ -101,8 +105,8 @@ class _HomeState extends State<Home> {
           Icon(Icons.cloud_download, size: 20, color: Colors.white,),
           Icon(Icons.exit_to_app, size: 20, color: Colors.white,),
         ],
-        color: Colors.lightGreen,
-        buttonBackgroundColor: Colors.lightGreen,
+        color: Colors.red,
+        buttonBackgroundColor: Colors.red,
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInCubic,
         animationDuration: Duration(milliseconds: 600),
