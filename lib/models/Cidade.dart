@@ -47,11 +47,6 @@ Map<String, dynamic> toMap() {
     return mapa;
   }
 
-  /*for(int i = 0; i < cidades.length; i++){
-      Cidade c = Cidade.fromMap(cidades[i]);
-      listaTemporaria.add(c);
-    }*/
-
   Cidade.fromMap(Map<String, dynamic> mapa){
 
     this._descricao_cidade = mapa['descricao_cidade'];

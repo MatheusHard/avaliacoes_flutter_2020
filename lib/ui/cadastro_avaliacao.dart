@@ -258,8 +258,8 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                         if(value.isEmpty || value == ""){
                           _myFocusNode.requestFocus();
                           Utils().showDefaultSnackbar(context, "Insira seu nome!!!");
-                          return Textos().validar_nome;
                         }
+                        return Textos().validar_nome;
                       },
                     ),
                   ),
@@ -271,7 +271,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     child: TextFormField(
                       controller: _cpfController,
                       focusNode: _myFocusNode_2,
-
+                      maxLength: 11,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Cpf:",
@@ -279,11 +279,20 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           icon: Icon(Icons.credit_card)
                       ),
                       validator: (value){
-                        if(value.isEmpty || value == ""){
-                          _myFocusNode_2.requestFocus();
-                          Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+
+                          if(value.isNotEmpty || value != ""){
+                            if(!Utils().validarCPF(value)){
+                              _myFocusNode_2.requestFocus();
+                              Utils().showDefaultSnackbar(context, "Cpf inválido!!!");
+                             // return Textos().validar_nome;
+                            }
+                          }else{
+                            _myFocusNode_2.requestFocus();
+                            Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+                          }
+
                           return Textos().validar_nome;
-                        }
+
                       },
                     ),
                   ),
@@ -319,6 +328,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
 
               /**********RADIO 02**********/
+
               _textoTitulo(Textos().titulo02),
               _textoSubtitulo(Textos().sub02_clareza),
               Padding(
@@ -1474,7 +1484,6 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
        _selectedProfissional = _dropdownMenuItemsProfissionais[0].value;
      });
      listaTemporaria = null;
-     print("Profissionais: "+_listaProfissionais.toString());
 
    }
 Text _validarTextoDropdownCidade(int id, String texto){
@@ -1497,9 +1506,8 @@ if(id == 1) {
         color: Colors.teal,
         fontSize: 15.0
     ),);
-}
-}
-
+    }
+  }
 }
 
 

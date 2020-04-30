@@ -28,7 +28,7 @@ dependencies:
   path_provider: ^1.6.5
   intl: ^0.16.1
   curved_navigation_bar: ^0.3.2
-
+  cpfcnpj: ^1.0.3
 
 dev_dependencies:
   flutter_test:

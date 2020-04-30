@@ -4,6 +4,7 @@ import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
 import 'package:avaliacao_json_novo/ui/sincronizar_avaliacoes.dart';
+import 'package:avaliacao_json_novo/utils/utils.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,8 +15,7 @@ import 'models/Avaliacao.dart';
 
 void main() async {
 //TEste API Cidade Post:
-  CidadeApi().insertJson(new Cidade("Atalia", 15, null).toJson());
-
+  //CidadeApi().insertJson(new Cidade("Atalia", 15, null).toJson());
   //print(cidade.toJson());
 
   //DBAvaliacoes db = new DBAvaliacoes();
