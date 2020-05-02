@@ -42,5 +42,7 @@ class Textos {
   String insuficiente = "Insuficiente";
 
   String validar_nome = "Insira o nome";
+  String validar_cpf = "Insira o Cpf";
+
 
 }

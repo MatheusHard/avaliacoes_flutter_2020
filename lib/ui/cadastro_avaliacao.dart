@@ -264,8 +264,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           if(value.isEmpty || value == ""){
                             _myFocusNode.requestFocus();
                             Utils().showDefaultSnackbar(context, "Insira seu nome!!!");
+                            return Textos().validar_nome;
+
                           }
-                          return Textos().validar_nome;
                         },
                       ),
                     ),
@@ -295,9 +296,10 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                             }else{
                               _myFocusNode_2.requestFocus();
                               Utils().showDefaultSnackbar(context, "Insira o Cpf!!!");
+                              return Textos().validar_cpf;
                             }
 
-                            return Textos().validar_nome;
+
 
                         },
                       ),
@@ -306,6 +308,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                 )),
 
                 _textoTitulo(Textos().titulo01),
+                SizedBox(height: 10.0,),
                 _textoSubtitulo(Textos().sub01_aplicacao),
 
                 /**********RADIO 01**********/
@@ -313,7 +316,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                 RadioListTile(
                         title: _textoNormal(Textos().proporcionou_1) ,
                         value: 1,
-                        activeColor: Colors.greenAccent,
+                        activeColor: Colors.green,
                         groupValue: _r1,
                         onChanged: (int escolha){
                           setState(() {
@@ -333,9 +336,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                         }
                     ),
 
+                SizedBox(height: 10.0,),
+
                 /**********RADIO 02**********/
 
                 _textoTitulo(Textos().titulo02),
+                SizedBox(height: 10.0,),
                 _textoSubtitulo(Textos().sub02_clareza),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -349,7 +355,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                             width: 20.0,
                             child: Radio(
 
-                                activeColor: Colors.greenAccent,
+                                activeColor: Colors.green,
                                 value: 1,
                                 groupValue: _r2,
                                 onChanged: (int escolha){
@@ -387,7 +393,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r2,
                             value: 3,
                             onChanged: (int escolha){
@@ -420,11 +426,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                 Divider(height: 20.0,),
 
                 /**********RADIO 03**********/
 
                 _textoSubtitulo(Textos().sub01_aplicacao),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: Column(
@@ -434,7 +440,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     RadioListTile(
                           title: _textoNormal(Textos().seguro) ,
                           value: 1,
-                          activeColor: Colors.greenAccent,
+                          activeColor: Colors.green,
                           groupValue: _r3,
                           onChanged: (int escolha){
                             setState(() {
@@ -445,7 +451,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                    RadioListTile(
                           title: _textoNormal(Textos().pouco_seguro) ,
                           value: 2,
-                          activeColor: Colors.yellowAccent,
+                          activeColor: Colors.orangeAccent,
                           groupValue: _r3,
                           onChanged: (int escolha){
                             setState(() {
@@ -469,6 +475,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                      ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 /**********RADIO 04**********/
 
@@ -484,7 +491,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r4,
                             onChanged: (int escolha){
@@ -502,7 +509,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             value: 2,
                             groupValue: _r4,
                             onChanged: (int escolha){
@@ -536,10 +543,12 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20.0,),
 
                 /**********RADIO 05**********/
 
                 _textoTitulo(Textos().titulo03_instru),
+                SizedBox(height: 10.0,),
                 _textoSubtitulo(Textos().sub04_conhecimento),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -552,7 +561,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r5,
                             onChanged: (int escolha){
@@ -588,7 +597,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r5,
                             value: 3,
                             onChanged: (int escolha){
@@ -621,6 +630,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 /**********RADIO 06**********/
 
@@ -636,7 +646,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                                 height: 20.0,
                                 width: 20.0,
                                 child: Radio(
-                                  activeColor: Colors.greenAccent,
+                                  activeColor: Colors.green,
                                   value: 1,
                                   groupValue: _r6,
                                   onChanged: (int escolha){
@@ -672,7 +682,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                                 height: 20.0,
                                 width: 20.0,
                                 child: Radio(
-                                  activeColor: Colors.yellowAccent,
+                                  activeColor: Colors.orangeAccent,
                                   groupValue: _r6,
                                   value: 3,
                                   onChanged: (int escolha){
@@ -706,6 +716,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 /**********RADIO 07**********/
 
@@ -721,7 +732,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r7,
                             onChanged: (int escolha){
@@ -757,7 +768,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r7,
                             value: 3,
                             onChanged: (int escolha){
@@ -790,10 +801,11 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
-
+                SizedBox(height: 20.0,),
                 /**********RADIO 08**********/
 
                 _textoTitulo(Textos().titulo04_equi),
+                SizedBox(height: 10.0,),
                 _textoSubtitulo(Textos().sub04_conhecimento),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -806,7 +818,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r8,
                             onChanged: (int escolha){
@@ -842,7 +854,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r8,
                             value: 3,
                             onChanged: (int escolha){
@@ -875,6 +887,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 /**********RADIO 09**********/
 
@@ -890,7 +903,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r9,
                             onChanged: (int escolha){
@@ -926,7 +939,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r9,
                             value: 3,
                             onChanged: (int escolha){
@@ -959,6 +972,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 /**********RADIO 10**********/
 
@@ -974,7 +988,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.greenAccent,
+                            activeColor: Colors.green,
                             value: 1,
                             groupValue: _r10,
                             onChanged: (int escolha){
@@ -1010,7 +1024,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                           height: 20.0,
                           width: 20.0,
                           child: Radio(
-                            activeColor: Colors.yellowAccent,
+                            activeColor: Colors.orangeAccent,
                             groupValue: _r10,
                             value: 3,
                             onChanged: (int escolha){
@@ -1043,6 +1057,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ],
                   ),
                 ),
+                Divider(height: 20.0,),
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
@@ -1057,7 +1072,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                   ),
                 ),
                 /***************************/
-                SizedBox(height: 10.0,),
+                SizedBox(height: 20.0,),
                 RaisedButton(
 
                   onPressed: (){
@@ -1099,9 +1114,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10.0,),
-
-
+                SizedBox(height: 20.0,),
               ],
             ),
           ),

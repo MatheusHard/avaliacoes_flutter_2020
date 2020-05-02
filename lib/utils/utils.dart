@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Utils {
 
-   String URL_WEB_SERVICE = "http://192.168.1.7:8000/";
+   String URL_WEB_SERVICE = "http://192.168.1.5:8000/";
 
    /**************Validar Cpf**************/
 
