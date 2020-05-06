@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:avaliacao_json_novo/apis/cidade_api.dart';
 import 'package:avaliacao_json_novo/apis/uf_api.dart';
-import 'package:avaliacao_json_novo/loaders/loader_1.dart';
-import 'package:avaliacao_json_novo/models/Cidade.dart';
-import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -17,6 +14,8 @@ class Sincronismo extends StatefulWidget {
 
 class _SincronismoState extends State<Sincronismo> {
    int cont = 1;
+   ProgressDialog _progressDialog;
+
   @override
   void initState() {
 
@@ -30,38 +29,22 @@ class _SincronismoState extends State<Sincronismo> {
   @override
   Widget build(BuildContext context) {
 
+
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-       /* FutureBuilder(
-        // quando você passa a Future para o widget, quando o FutureBuilder for reconstruído,
-        // ele vai TESTAR se esse objeto da classe Future é o mesmo de antes dele ser reconstruído,
-        // se forem diferentes, ele vai re chamar a Future
 
-        // nesse caso, ele Não vai refazer a chamada, porque o objeto já foi criado no initState e sempre será o mesmo
-        future: DBAvaliacoes().getCidades(),
-
-        // nesse caso, ele vai refazer a chamada, porque toda vez que a função facaAlgo é chamada, ela retorna um novo objeto
-        // da classe Future
-        //  future: facaAlgo(),
-        builder: (ctx, snapshot) {
-          if (!snapshot.hasData)
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          return Center(
-            //child:
-
-            //Text(" fiz : ${snapshot.data}"),
-          );
-        },
-      ),*/
           Center(
             child: RaisedButton(
 
-              onPressed:  () => _sincronizar(context),
+              onPressed:  (){
+
+                _spinnerSincronizar(context);
+                //_sincronizar(context);
+                },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(80.0),
               ),
@@ -98,7 +81,7 @@ class _SincronismoState extends State<Sincronismo> {
     );
   }
 
-  _sincronizar (BuildContext context) async{
+  /*_sincronizar (BuildContext context) async{
 
     int valorCidade;
     int valorUf;
@@ -116,6 +99,50 @@ class _SincronismoState extends State<Sincronismo> {
         });
       });
     });
+
+    }*/
+
+    _spinnerSincronizar(BuildContext context)  {
+      int valorCidade;
+      int valorUf;
+      var _percentage = 0.0;
+
+    _progressDialog = new ProgressDialog(context);
+    _progressDialog =  ProgressDialog(context, type: ProgressDialogType.Download);
+     _progressDialog.show();
+
+    Future.delayed(Duration(seconds: 3)).then((value){
+      _percentage = _percentage + 33;
+      _progressDialog.update(progress: _percentage, message: "Aguarde");
+
+      Future.delayed(Duration(seconds: 3)).then((value){
+          _percentage = _percentage + 33;
+
+            CidadeApi().getJson(context).then((value){
+              valorCidade = value;
+              UfApi().getJson(context).then((value){
+                valorUf = value;
+                if(valorCidade != 200 || valorUf != 200) {
+                  Utils().showDefaultSnackbar(context, "Erro ao sincronizar: C("+valorCidade.toString()+")U("+valorUf.toString()+")");
+                  _progressDialog.hide();
+                }
+              });
+            });
+
+          _progressDialog.update(progress: _percentage, message: "Finalizando");
+
+            Future.delayed(Duration(seconds: 3)).then((value){
+             _percentage = 100;
+            _progressDialog.update(progress: _percentage, message: "Concluido");
+
+             if(valorCidade == 200 && valorUf == 200) {
+               Utils().showDefaultSnackbar(context, "Sincronizado com sucesso!!!");
+             }
+             _progressDialog.hide();
+
+            });
+     });
+  });
 
     }
   }

@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.16.1
   curved_navigation_bar: ^0.3.2
   cpfcnpj: ^1.0.3
+  progress_dialog: ^1.2.2
 
 dev_dependencies:
   flutter_test:

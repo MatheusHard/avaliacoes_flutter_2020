@@ -176,6 +176,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
+                SizedBox(height: 30.0,),
                 _textoTitulo(Textos().titulo00_dados),
 
                 Padding(
