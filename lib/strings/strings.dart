@@ -5,8 +5,6 @@ class Textos {
   String sair = "Sair";
   String home = "Home";
 
-
-
   String titulo00_dados = "Dados Cadastrais";
   String titulo01 = "Conteúdo Teórico";
   String titulo02 = "Conteúdo Prático";
@@ -16,7 +14,6 @@ class Textos {
   String titulo06_Cidade = "Cidade";
   String titulo07_Nome = "Nome";
   String titulo08_prof = "Profissão";
-
 
   String sub01_aplicacao = "Aplicação no processo de Trabalho:";
   String sub02_clareza = "Clareza/Facilidades de trabalho:";

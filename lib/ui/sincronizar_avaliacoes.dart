@@ -111,11 +111,11 @@ class _SincronismoState extends State<Sincronismo> {
     _progressDialog =  ProgressDialog(context, type: ProgressDialogType.Download);
      _progressDialog.show();
 
-    Future.delayed(Duration(seconds: 3)).then((value){
+    Future.delayed(Duration(seconds: 2)).then((value){
       _percentage = _percentage + 33;
       _progressDialog.update(progress: _percentage, message: "Aguarde");
 
-      Future.delayed(Duration(seconds: 3)).then((value){
+      Future.delayed(Duration(seconds: 2)).then((value){
           _percentage = _percentage + 33;
 
             CidadeApi().getJson(context).then((value){
@@ -131,7 +131,7 @@ class _SincronismoState extends State<Sincronismo> {
 
           _progressDialog.update(progress: _percentage, message: "Finalizando");
 
-            Future.delayed(Duration(seconds: 3)).then((value){
+            Future.delayed(Duration(seconds: 2)).then((value){
              _percentage = 100;
             _progressDialog.update(progress: _percentage, message: "Concluido");
 

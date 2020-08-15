@@ -14,8 +14,9 @@ class CidadeApi{
   Future<int> getJson(BuildContext context) async{
 
 
-      String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_GET;
-      http.Response response = await http.post(url);
+      //String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_GET;
+    String url = Utils().URL_WEB_SERVICE + "cidade";
+    http.Response response = await http.post(url);
 
     if(response.statusCode == 200) {
       DBAvaliacoes db = new DBAvaliacoes();
