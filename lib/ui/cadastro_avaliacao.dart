@@ -1517,7 +1517,14 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   getCidades() async{
 
     DBAvaliacoes db = new DBAvaliacoes();
-//    List cidades = await db.getCitys();
+    List cidade = await db.getCidades();
+    List ufs = await db.getUfs();
+
+    print(cidade);
+    print("************");
+    print(ufs);
+
+
     List cidades = await db.getCidadesUfs();
     List<Cidade> listaTemporaria = List<Cidade>();
     for(int i = 0; i < cidades.length; i++){

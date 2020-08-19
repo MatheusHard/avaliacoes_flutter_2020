@@ -8,7 +8,7 @@ import 'dart:convert';
 
 class UfApi{
 
- String _URL_API_UFS = "api/ufs/index_api";
+ String _URL_API_UFS = "api/uf";
 
  Future<int> getJson(BuildContext context) async{
 
@@ -30,7 +30,8 @@ class UfApi{
       }
       //Fechar o DB:
       //await db.closeDb();
-
+      List u = await db.getUfs();
+      print(u);
     // await db.closeDb();
       //return json.decode(response.body);
       return response.statusCode;
