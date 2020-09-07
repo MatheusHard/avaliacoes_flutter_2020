@@ -1,6 +1,8 @@
 
 import 'package:avaliacao_json_novo/apis/cidade_api.dart';
 import 'package:avaliacao_json_novo/apis/uf_api.dart';
+import 'package:avaliacao_json_novo/models/Cidade.dart';
+import 'package:avaliacao_json_novo/models/Uf.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
 
@@ -106,6 +108,8 @@ class _SincronismoState extends State<Sincronismo> {
       int valorCidade;
       int valorUf;
       var _percentage = 0.0;
+
+
 
     _progressDialog = new ProgressDialog(context);
     _progressDialog =  ProgressDialog(context, type: ProgressDialogType.Download);

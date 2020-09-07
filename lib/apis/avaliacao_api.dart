@@ -6,7 +6,7 @@ class AvaliacaoApi{
 
   String _ok = "Avaliação enviada com sucesso...";
   String _erro = "Ocorreu um erro ao enviar a Avaliação: ";
-  String _URL_API_AVALIACOES_POST = "/api/avaliacoes/store_api";
+  String _URL_API_AVALIACOES_POST = "api/avaliacao/add";
 
   insertJson(Map avaliacao, BuildContext context) async {
 
@@ -19,11 +19,15 @@ class AvaliacaoApi{
         body: avaliacao
     );
 
+    print("Status: "+response.statusCode.toString());
+    print("Body: "+response.body.toString());
+
+
     if(response.statusCode == 200 || response.statusCode == 201){
       Utils().showDefaultSnackbar(context, _ok);
     }else{
       Utils().showDefaultSnackbar(context, _erro + response.statusCode.toString()+response.body);
-      //print(response.body);
+      print(response.body);
     }
   }
 }

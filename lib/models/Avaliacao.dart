@@ -94,13 +94,13 @@ class Avaliacao {
         'radiobom_10': this.radiobom_10.toString(),
         'radioRegular_10': this.radioRegular_10.toString(),
         'radioRuim_10': this.radioRuim_10.toString(),
-        'descricao': this._sugestoes,
+        'descricao': this._sugestoes.toString(),
         'cidade_id': this.idCidade.toString(),
-        'descricao_profissional': this._nomeAgente,
-        'descricao_tipo_profissional': this._nomeTipoAgente,
+        'descricao_profissional': this.nomeAgente.toString(),
+        'descricao_tipo_profissional': this.nomeTipoAgente.toString(),
         'tipo_profissional': this._tipoAgente.toString(),
-        'datahora': this._dataHora.toString(),
-        'cpf_profissional': this._cpf,
+        'datahora': this.dataHora.toString(),
+        'cpf_profissional': this._cpf.toString(),
       };
 
    int get idAv => _idAv;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Utils {
 //http://avaliacoes-backend.herokuapp.com/api/uf
 
-   //String URL_WEB_SERVICE = "http://192.168.1.9:8000/";
+   //String URL_WEB_SERVICE = "http://192.168.0.152/";
   String URL_WEB_SERVICE = "http://avaliacoes-backend.herokuapp.com/";
 
    /**************Validar Cpf**************/
@@ -16,6 +16,11 @@ class Utils {
     return CPF().isValid(cpf);
     }
 
+    /*********DataFora***************/
+
+  DateTime getDataHora (){
+     return new DateTime.now();
+  }
     /**************Mostrar Texto**************/
 
     void showDefaultSnackbar(BuildContext context, String texto) {
