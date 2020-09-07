@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:avaliacao_json_novo/apis/avaliacao_api.dart';
+import 'package:avaliacao_json_novo/apis/cidade_api.dart';
 import 'package:avaliacao_json_novo/models/Avaliacao.dart';
 import 'package:avaliacao_json_novo/models/Cidade.dart';
 import 'package:avaliacao_json_novo/models/Profissional.dart';
@@ -36,7 +37,7 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   int _tipoAgente;
   String _nomeTipoAgente;
   //TODO
-  DateTime _dataHora;
+  DateTime _dataHora = Utils().getDataHora();
   int _idCidade;
 
   List<Cidade> _listaCidades = List<Cidade>();
@@ -1418,7 +1419,13 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                                       _sugestoes, _tipoAgente, _nomeTipoAgente, _nomeAgente, _cpf);
 
           //Send Avaliação Json to Server Laravel:
+          //AvaliacaoApi().insertJson(avaliacao.toJson(), context);
           AvaliacaoApi().insertJson(avaliacao.toJson(), context);
+
+          /**************h******************/
+         // Cidade c = new Cidade("Toritama", 2, null);
+          //CidadeApi().insertJson(c.toJson());
+          /**************g*****************/
 
           //Fim validação 01:
         } else {
@@ -1517,7 +1524,14 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   getCidades() async{
 
     DBAvaliacoes db = new DBAvaliacoes();
-//    List cidades = await db.getCitys();
+    List cidade = await db.getCidades();
+    List ufs = await db.getUfs();
+
+    print(cidade);
+    print("************");
+    print(ufs);
+
+
     List cidades = await db.getCidadesUfs();
     List<Cidade> listaTemporaria = List<Cidade>();
     for(int i = 0; i < cidades.length; i++){

@@ -8,15 +8,14 @@ import 'dart:convert';
 
 class CidadeApi{
 
-  String _URL_API_CIDADES_GET = "api/cidades/index_api";
-  String _URL_API_CIDADES_POST = "api/cidades/store_api";
+  String _URL_API_CIDADES_GET = "api/cidade";
+  String _URL_API_CIDADES_POST = "api/cidade/add";
 
   Future<int> getJson(BuildContext context) async{
 
 
-      //String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_GET;
-    String url = Utils().URL_WEB_SERVICE + "cidade";
-    http.Response response = await http.post(url);
+        String url = Utils().URL_WEB_SERVICE + _URL_API_CIDADES_GET;
+        http.Response response = await http.post(url);
 
     if(response.statusCode == 200) {
       DBAvaliacoes db = new DBAvaliacoes();
@@ -27,10 +26,12 @@ class CidadeApi{
 
   for (int i = 0; i < _dados.length; i++) {
     //Inserir no DB interno dados da API:
-    await db.inserirCidade(new Cidade(_dados[i]["descricao_cidade"], _dados[i]["uf_id"], null));
+    await db.inserirCidade(new Cidade(_dados[i]["descricao_cidade"], _dados[i]["uf_id"] , null));
   }
+    List d = await db.getCidades();
+      print(d);
 
-  //return json.decode(response.body);
+      //return json.decode(response.body);
       return response.statusCode;
 
 }else{

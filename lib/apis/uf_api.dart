@@ -8,7 +8,9 @@ import 'dart:convert';
 
 class UfApi{
 
- String _URL_API_UFS = "api/ufs/index_api";
+ String _URL_API_UFS = "api/uf";
+ String _URL_API_UF_ADD = "api/uf/add";
+
 
  Future<int> getJson(BuildContext context) async{
 
@@ -30,7 +32,8 @@ class UfApi{
       }
       //Fechar o DB:
       //await db.closeDb();
-
+      List u = await db.getUfs();
+      print(u);
     // await db.closeDb();
       //return json.decode(response.body);
       return response.statusCode;
@@ -40,4 +43,22 @@ class UfApi{
 
     }
   }
+
+
+ /************ENVIAR***************/
+
+ insertJson(Map uf) async{
+   String url = Utils().URL_WEB_SERVICE + _URL_API_UF_ADD;
+
+   http.Response response = await http.post(
+       url,
+       headers: {
+         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+       },
+       body: uf
+   );
+   print("Status: "+response.statusCode.toString());
+   print("Body: "+response.body.toString());
+
+ }
 }
