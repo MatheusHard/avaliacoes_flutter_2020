@@ -11,6 +11,7 @@ import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 
 class Cadastro_Avaliacao extends StatefulWidget {
@@ -19,6 +20,8 @@ class Cadastro_Avaliacao extends StatefulWidget {
 }
 
 class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
+
+  ProgressDialog _progressDialog;
 
   int _radioSim_1, _radioNao_1;
   int _radioMuito_2, _radiobom_2, _radioRegular_2, _radioRuim_2;
@@ -1420,12 +1423,31 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
 
           //Send Avaliação Json to Server Laravel:
           //AvaliacaoApi().insertJson(avaliacao.toJson(), context);
-          AvaliacaoApi().insertJson(avaliacao.toJson(), context);
+          _progressDialog = new ProgressDialog(context);
+          _progressDialog =  ProgressDialog(context, type: ProgressDialogType.Normal);
+          _progressDialog.style(
+              message: 'Enviando Avaliação...',
+              borderRadius: 10.0,
+              backgroundColor: Colors.redAccent,
+              progressWidget: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent)
+              ),
+              elevation: 10.0,
+              insetAnimCurve: Curves.elasticIn,
+              progress: 0.0,
+              maxProgress: 100.0,
+              progressTextStyle: TextStyle(
+                  color: Colors.black54, fontSize: 10.0, fontWeight: FontWeight.w400),
+              messageTextStyle: TextStyle(
+                  color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.w600)
+          );
+          _progressDialog.show();
+          Future.delayed(Duration(seconds: 4)).then((value){
+            AvaliacaoApi().insertJson(avaliacao.toJson(), context);
+            _progressDialog.hide();
+          });
 
-          /**************h******************/
-         // Cidade c = new Cidade("Toritama", 2, null);
-          //CidadeApi().insertJson(c.toJson());
-          /**************g*****************/
 
           //Fim validação 01:
         } else {
