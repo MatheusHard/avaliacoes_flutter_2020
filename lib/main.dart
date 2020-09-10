@@ -60,7 +60,9 @@ void main() async {
   runApp(
 
     new MaterialApp(
-        home:  Home()
+        home:  Home(),
+      debugShowCheckedModeBanner: false,
+      //C:\Keys\Avaliacoes
       //home: Cadastro_Avaliacao()
   )
 

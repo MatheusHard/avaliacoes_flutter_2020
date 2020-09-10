@@ -1421,32 +1421,9 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
                                       _radioMuito_10,_radiobom_10,_radioRegular_10,_radioRuim_10,
                                       _sugestoes, _tipoAgente, _nomeTipoAgente, _nomeAgente, _cpf);
 
-          //Send Avaliação Json to Server Laravel:
-          //AvaliacaoApi().insertJson(avaliacao.toJson(), context);
-          _progressDialog = new ProgressDialog(context);
-          _progressDialog =  ProgressDialog(context, type: ProgressDialogType.Normal);
-          _progressDialog.style(
-              message: 'Enviando Avaliação...',
-              borderRadius: 10.0,
-              backgroundColor: Colors.redAccent,
-              progressWidget: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent)
-              ),
-              elevation: 10.0,
-              insetAnimCurve: Curves.elasticIn,
-              progress: 0.0,
-              maxProgress: 100.0,
-              progressTextStyle: TextStyle(
-                  color: Colors.black54, fontSize: 10.0, fontWeight: FontWeight.w400),
-              messageTextStyle: TextStyle(
-                  color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.w600)
-          );
-          _progressDialog.show();
-          Future.delayed(Duration(seconds: 4)).then((value){
-            AvaliacaoApi().insertJson(avaliacao.toJson(), context);
-            _progressDialog.hide();
-          });
+          /*******POST AVALIAÇÃO*******/
+
+          _enviarAvaliacao(context, avaliacao);
 
 
           //Fim validação 01:
@@ -1464,20 +1441,6 @@ class _Cadastro_AvaliacaoState extends State<Cadastro_Avaliacao> {
   }
   );
 
-  /*print("Resultado: " + _r1.toString()
-
-      + " -- Cidade: " + _selectedCidade.descricao_cidade
-      + " -- Muito: " + a.radioSeguro_3.toString()
-      + " -- BOm: " + a.radioPoucoSeguro_3.toString()
-      + " -- Regular: " + a.radioInseguro_3.toString()
-      + " -- Ruim: " + a.radioInseguro_3.toString()
-      + " -- Nome: " + a.nomeAgente.toString()
-      + " -- Sugestão: " + a.sugestoes.toString()
-      + " -- Cpf: " + _cpf
-      + " -- Prof: " + _selectedProfissional.id.toString()
-
-
-  );*/
   }
 
   Padding _textoTitulo(String valor){
@@ -1609,6 +1572,34 @@ if(id == 1) {
         fontSize: 15.0
     ),);
     }
+  }
+
+  void _enviarAvaliacao(BuildContext c, Avaliacao a){
+
+    _progressDialog = new ProgressDialog(c);
+    _progressDialog =  ProgressDialog(c, type: ProgressDialogType.Normal);
+    _progressDialog.style(
+        message: 'Enviando Avaliação...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.redAccent,
+        progressWidget: CircularProgressIndicator(
+            backgroundColor: Colors.white,
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent)
+        ),
+        elevation: 10.0,
+        insetAnimCurve: Curves.elasticIn,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black54, fontSize: 10.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.w600)
+    );
+    _progressDialog.show();
+    Future.delayed(Duration(seconds: 4)).then((value){
+      AvaliacaoApi().insertJson(a.toJson(), c);
+      _progressDialog.hide();
+    });
   }
 }
 

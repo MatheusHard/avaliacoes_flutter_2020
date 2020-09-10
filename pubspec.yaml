@@ -31,9 +31,16 @@ dependencies:
   cpfcnpj: ^1.0.3
   progress_dialog: ^1.2.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  android: true
+  image_path: "dev_assets/icon_avs.jpg"
+
 
 
 # For information on the generic Dart part of this file, see the

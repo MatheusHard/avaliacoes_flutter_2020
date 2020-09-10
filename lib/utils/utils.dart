@@ -10,13 +10,13 @@ class Utils {
    /**************Validar Cpf**************/
 
    String imprimeCPF(String cpf){
-    return CPF().format(cpf);
+    return CPF.format(cpf);
     }
     bool validarCPF(String cpf){
-    return CPF().isValid(cpf);
+    return CPF.isValid(cpf);
     }
 
-    /*********DataFora***************/
+    /***************DataHora***************/
 
   DateTime getDataHora (){
      return new DateTime.now();
