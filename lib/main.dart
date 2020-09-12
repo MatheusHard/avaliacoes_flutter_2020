@@ -1,5 +1,6 @@
 
 import 'package:avaliacao_json_novo/models/Cidade.dart';
+import 'package:avaliacao_json_novo/splashscreen.dart';
 import 'package:avaliacao_json_novo/strings/strings.dart';
 import 'package:avaliacao_json_novo/ui/avaliacoes_db.dart';
 import 'package:avaliacao_json_novo/ui/cadastro_avaliacao.dart';
@@ -60,7 +61,7 @@ void main() async {
   runApp(
 
     new MaterialApp(
-        home:  Home(),
+        home:  SplashScreen(),
       debugShowCheckedModeBanner: false,
       //C:\Keys\Avaliacoes
       //home: Cadastro_Avaliacao()
