@@ -62,8 +62,7 @@ void main() async {
 
     new MaterialApp(
         home:  SplashScreen(),
-      debugShowCheckedModeBanner: false,
-      //C:\Keys\Avaliacoes
+        debugShowCheckedModeBanner: false,
       //home: Cadastro_Avaliacao()
   )
 
@@ -101,9 +100,11 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: tabs[_currentIndex],
-      bottomNavigationBar: CurvedNavigationBar(
+
+      bottomNavigationBar:
+      CurvedNavigationBar(
         items: <Widget>[
-           Icon(Icons.home, size: 20, color: Colors.white,),
+          Icon(Icons.home, size: 20, color: Colors.white,),
           Icon(Icons.add, size: 20, color: Colors.white,),
           Icon(Icons.cloud_download, size: 20, color: Colors.white,),
           Icon(Icons.exit_to_app, size: 20, color: Colors.white,),

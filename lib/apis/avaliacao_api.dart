@@ -24,10 +24,9 @@ class AvaliacaoApi{
 
 
     if(response.statusCode == 200 || response.statusCode == 201){
-      Utils().showDefaultSnackbar(context, _ok);
+     return Utils().showDefaultSnackbar(context, _ok);
     }else{
-      Utils().showDefaultSnackbar(context, _erro + response.statusCode.toString()+response.body);
-      print(response.body);
+      return Utils().showDefaultSnackbar(context, _erro + response.statusCode.toString()+response.body);
     }
   }
 }
